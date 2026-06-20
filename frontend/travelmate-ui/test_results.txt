@@ -1,0 +1,2738 @@
+
+> travelmate-ui@0.1.0 test
+> react-scripts test --watchAll=false
+
+FAIL src/services/api.test.js
+  ● API Service Interceptors › should attach token from sessionStorage to headers
+
+    TypeError: Cannot read properties of undefined (reading '0')
+
+    [0m [90m 25 |[39m     
+     [90m 26 |[39m     [90m// Extract registered interceptors[39m
+    [31m[1m>[22m[39m[90m 27 |[39m     requestInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mrequest[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m    |[39m                                                                    [31m[1m^[22m[39m
+     [90m 28 |[39m     responseInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m 29 |[39m     responseErrorInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m1[39m][33m;[39m
+     [90m 30 |[39m     [0m
+
+      at Object.<anonymous> (src/services/api.test.js:27:68)
+
+  ● API Service Interceptors › should attach token from localStorage if sessionStorage is empty
+
+    TypeError: Cannot read properties of undefined (reading '0')
+
+    [0m [90m 25 |[39m     
+     [90m 26 |[39m     [90m// Extract registered interceptors[39m
+    [31m[1m>[22m[39m[90m 27 |[39m     requestInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mrequest[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m    |[39m                                                                    [31m[1m^[22m[39m
+     [90m 28 |[39m     responseInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m 29 |[39m     responseErrorInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m1[39m][33m;[39m
+     [90m 30 |[39m     [0m
+
+      at Object.<anonymous> (src/services/api.test.js:27:68)
+
+  ● API Service Interceptors › should not attach token if storage is empty
+
+    TypeError: Cannot read properties of undefined (reading '0')
+
+    [0m [90m 25 |[39m     
+     [90m 26 |[39m     [90m// Extract registered interceptors[39m
+    [31m[1m>[22m[39m[90m 27 |[39m     requestInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mrequest[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m    |[39m                                                                    [31m[1m^[22m[39m
+     [90m 28 |[39m     responseInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m 29 |[39m     responseErrorInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m1[39m][33m;[39m
+     [90m 30 |[39m     [0m
+
+      at Object.<anonymous> (src/services/api.test.js:27:68)
+
+  ● API Service Interceptors › should pass through successful response
+
+    TypeError: Cannot read properties of undefined (reading '0')
+
+    [0m [90m 25 |[39m     
+     [90m 26 |[39m     [90m// Extract registered interceptors[39m
+    [31m[1m>[22m[39m[90m 27 |[39m     requestInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mrequest[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m    |[39m                                                                    [31m[1m^[22m[39m
+     [90m 28 |[39m     responseInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m 29 |[39m     responseErrorInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m1[39m][33m;[39m
+     [90m 30 |[39m     [0m
+
+      at Object.<anonymous> (src/services/api.test.js:27:68)
+
+  ● API Service Interceptors › should clear storage and redirect on 401 error
+
+    TypeError: Cannot read properties of undefined (reading '0')
+
+    [0m [90m 25 |[39m     
+     [90m 26 |[39m     [90m// Extract registered interceptors[39m
+    [31m[1m>[22m[39m[90m 27 |[39m     requestInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mrequest[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m    |[39m                                                                    [31m[1m^[22m[39m
+     [90m 28 |[39m     responseInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m 29 |[39m     responseErrorInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m1[39m][33m;[39m
+     [90m 30 |[39m     [0m
+
+      at Object.<anonymous> (src/services/api.test.js:27:68)
+
+  ● API Service Interceptors › should reject other errors without redirecting
+
+    TypeError: Cannot read properties of undefined (reading '0')
+
+    [0m [90m 25 |[39m     
+     [90m 26 |[39m     [90m// Extract registered interceptors[39m
+    [31m[1m>[22m[39m[90m 27 |[39m     requestInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mrequest[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m    |[39m                                                                    [31m[1m^[22m[39m
+     [90m 28 |[39m     responseInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m0[39m][33m;[39m
+     [90m 29 |[39m     responseErrorInterceptor [33m=[39m [33mAPI[39m[33m.[39minterceptors[33m.[39mresponse[33m.[39muse[33m.[39mmock[33m.[39mcalls[[35m0[39m][[35m1[39m][33m;[39m
+     [90m 30 |[39m     [0m
+
+      at Object.<anonymous> (src/services/api.test.js:27:68)
+
+PASS src/store/userSlice.test.js
+PASS src/services/paymentService.test.js
+FAIL src/pages/Register.test.js
+  ● Test suite failed to run
+
+    Cannot find module 'react-router-dom' from 'src/pages/Register.test.js'
+
+    [0m [90m  8 |[39m
+     [90m  9 |[39m [36mconst[39m mockNavigate [33m=[39m jest[33m.[39mfn()[33m;[39m
+    [31m[1m>[22m[39m[90m 10 |[39m jest[33m.[39mmock([32m"react-router-dom"[39m[33m,[39m () [33m=>[39m ({
+     [90m    |[39m      [31m[1m^[22m[39m
+     [90m 11 |[39m   [33m...[39mjest[33m.[39mrequireActual([32m"react-router-dom"[39m)[33m,[39m
+     [90m 12 |[39m   useNavigate[33m:[39m () [33m=>[39m mockNavigate[33m,[39m
+     [90m 13 |[39m }))[33m;[39m[0m
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/pages/Register.test.js:10:6)
+
+FAIL src/components/ItineraryView.test.js
+  ● ItineraryView Component › renders empty itinerary
+
+    TestingLibraryElementError: Unable to find an element with the text: Itinerary (0 days). This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div />[39m
+    [36m</body>[39m
+
+    [0m [90m  6 |[39m   test([32m"renders empty itinerary"[39m[33m,[39m () [33m=>[39m {
+     [90m  7 |[39m     render([33m<[39m[33mItineraryView[39m itinerary[33m=[39m{[]} [33m/[39m[33m>[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m  8 |[39m     expect(screen[33m.[39mgetByText([32m"Itinerary (0 days)"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m  9 |[39m   })[33m;[39m
+     [90m 10 |[39m
+     [90m 11 |[39m   test([32m"renders itinerary days"[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/ItineraryView.test.js:8:19)
+
+  ● ItineraryView Component › renders itinerary days
+
+    TestingLibraryElementError: Unable to find an element with the text: Itinerary (3 days). This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"itinerary-list"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"itinerary-header"[39m
+          [36m>[39m
+            [0m📋 Day-by-Day Itinerary[0m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"itinerary-day "[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"itinerary-day-num"[39m
+            [36m>[39m
+              [0mDay [0m
+              [0m1[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"itinerary-day-plan"[39m
+            [36m>[39m
+              [0mArrival[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"itinerary-day "[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"itinerary-day-num"[39m
+            [36m>[39m
+              [0mDay [0m
+              [0m2[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"itinerary-day-plan"[39m
+            [36m>[39m
+              [0mSightseeing[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"itinerary-day itinerary-day-last"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"itinerary-day-num"[39m
+            [36m>[39m
+              [0mDay [0m
+              [0m3[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"itinerary-day-plan"[39m
+            [36m>[39m
+              [0mDeparture[0m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 16 |[39m     ][33m;[39m
+     [90m 17 |[39m     render([33m<[39m[33mItineraryView[39m itinerary[33m=[39m{itinerary} [33m/[39m[33m>[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 18 |[39m     expect(screen[33m.[39mgetByText([32m"Itinerary (3 days)"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 19 |[39m     expect(screen[33m.[39mgetByText([32m"Day 1"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 20 |[39m     expect(screen[33m.[39mgetByText([32m"Arrival"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 21 |[39m     expect(screen[33m.[39mgetByText([32m"Day 3"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/ItineraryView.test.js:18:19)
+
+PASS src/App.test.js
+FAIL src/pages/ForgotPassword.test.js
+  ● Test suite failed to run
+
+    Cannot find module 'react-router-dom' from 'src/pages/ForgotPassword.test.js'
+
+    [0m [90m  8 |[39m
+     [90m  9 |[39m [36mconst[39m mockNavigate [33m=[39m jest[33m.[39mfn()[33m;[39m
+    [31m[1m>[22m[39m[90m 10 |[39m jest[33m.[39mmock([32m"react-router-dom"[39m[33m,[39m () [33m=>[39m ({
+     [90m    |[39m      [31m[1m^[22m[39m
+     [90m 11 |[39m   [33m...[39mjest[33m.[39mrequireActual([32m"react-router-dom"[39m)[33m,[39m
+     [90m 12 |[39m   useNavigate[33m:[39m () [33m=>[39m mockNavigate[33m,[39m
+     [90m 13 |[39m }))[33m;[39m[0m
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/pages/ForgotPassword.test.js:10:6)
+
+FAIL src/pages/Login.test.js
+  ● Test suite failed to run
+
+    Cannot find module 'react-router-dom' from 'src/pages/Login.test.js'
+
+    [0m [90m 11 |[39m
+     [90m 12 |[39m [36mconst[39m mockNavigate [33m=[39m jest[33m.[39mfn()[33m;[39m
+    [31m[1m>[22m[39m[90m 13 |[39m jest[33m.[39mmock([32m"react-router-dom"[39m[33m,[39m () [33m=>[39m ({
+     [90m    |[39m      [31m[1m^[22m[39m
+     [90m 14 |[39m   [33m...[39mjest[33m.[39mrequireActual([32m"react-router-dom"[39m)[33m,[39m
+     [90m 15 |[39m   useNavigate[33m:[39m () [33m=>[39m mockNavigate[33m,[39m
+     [90m 16 |[39m }))[33m;[39m[0m
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/pages/Login.test.js:13:6)
+
+FAIL src/pages/AdminDashboard.test.js
+  ● Test suite failed to run
+
+    Cannot find module 'react-router-dom' from 'src/pages/AdminDashboard.test.js'
+
+    [0m [90m  7 |[39m
+     [90m  8 |[39m [36mconst[39m mockNavigate [33m=[39m jest[33m.[39mfn()[33m;[39m
+    [31m[1m>[22m[39m[90m  9 |[39m jest[33m.[39mmock([32m"react-router-dom"[39m[33m,[39m () [33m=>[39m ({
+     [90m    |[39m      [31m[1m^[22m[39m
+     [90m 10 |[39m   useNavigate[33m:[39m () [33m=>[39m mockNavigate
+     [90m 11 |[39m }))[33m;[39m
+     [90m 12 |[39m[0m
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/pages/AdminDashboard.test.js:9:6)
+
+FAIL src/pages/Dashboard.test.js
+  ● PackageCard › shows "My Custom" badge when ownerEmail is set
+
+    TestingLibraryElementError: Unable to find an element with the text: /My Custom/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"pkg-card"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"pkg-emoji"[39m
+          [36m>[39m
+            [0m🏖[0m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"pkg-body"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"pkg-name"[39m
+            [36m>[39m
+              [0mGoa Bliss[0m
+            [36m</div>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"badge badge-admin"[39m
+              [33mstyle[39m=[32m"margin-bottom: 8px;"[39m
+            [36m>[39m
+              [0m✅ Official Package[0m
+            [36m</span>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"pkg-chips"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"chip"[39m
+              [36m>[39m
+                [0m📅 [0m
+                [0m5[0m
+                [0md[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"chip"[39m
+              [36m>[39m
+                [0m🟢 12 of 15 slots[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"chip"[39m
+              [36m>[39m
+                [0mDEFAULT[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"pkg-price"[39m
+            [36m>[39m
+              [0m₹[0m
+              [0m15,000[0m
+              [36m<span[39m
+                [33mclass[39m=[32m"pkg-price-sub"[39m
+              [36m>[39m
+                [0m / person[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"slots-bar"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"slots-fill"[39m
+                [33mstyle[39m=[32m"width: 20%;"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"slots-text"[39m
+            [36m>[39m
+              [0m12 of 15 slots available this month[0m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn-book"[39m
+            [36m>[39m
+              [0mBook Now →[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 60 |[39m   test([32m'shows "My Custom" badge when ownerEmail is set'[39m[33m,[39m () [33m=>[39m {
+     [90m 61 |[39m     render([33m<[39m[33mPackageCard[39m pkg[33m=[39m{{ [33m...[39mbasePkg[33m,[39m ownerEmail[33m:[39m [32m'test@test.com'[39m }} onBook[33m=[39m{() [33m=>[39m {}} [33m/[39m[33m>[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 62 |[39m     expect(screen[33m.[39mgetByText([35m/My Custom/i[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 63 |[39m   })[33m;[39m
+     [90m 64 |[39m })[33m;[39m
+     [90m 65 |[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/pages/Dashboard.test.js:62:19)
+
+PASS src/components/PackageCard.test.js
+FAIL src/components/Navbar.test.js
+  ● Test suite failed to run
+
+    Cannot find module 'react-router-dom' from 'src/components/Navbar.js'
+
+    Require stack:
+      src/components/Navbar.js
+      src/components/Navbar.test.js
+
+    [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useNavigate[33m,[39m useLocation } [36mfrom[39m [32m"react-router-dom"[39m[33m;[39m
+     [90m   |[39m [31m[1m^[22m[39m
+     [90m 2 |[39m
+     [90m 3 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mNavbar[39m() {
+     [90m 4 |[39m   [36mconst[39m navigate [33m=[39m useNavigate()[33m;[39m[0m
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/components/Navbar.js:1:1)
+      at Object.<anonymous> (src/components/Navbar.test.js:6:1)
+
+PASS src/components/BookingCard.test.js
+FAIL src/components/CancellationPolicyModal.test.js
+  ● CancellationPolicyModal Component › renders correctly
+
+    TestingLibraryElementError: Unable to find an element with the text: Cancellation Policy & Rules. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+            [33mstyle[39m=[32m"max-width: 480px;"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"modal-title"[39m
+              [36m>[39m
+                [0m📋 Cancellation Policy[0m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"policy-box"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"policy-row"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"policy-icon"[39m
+                [36m>[39m
+                  [0m✅[0m
+                [36m</span>[39m
+                [36m<div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-title"[39m
+                  [36m>[39m
+                    [0mFull Payment — 70% Refund[0m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-desc"[39m
+                  [36m>[39m
+                    [0mIf you paid in full and cancel before the trip starts, you receive a 70% refund.[0m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"policy-row"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"policy-icon"[39m
+                [36m>[39m
+                  [0m⚠️[0m
+                [36m</span>[39m
+                [36m<div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-title"[39m
+                  [36m>[39m
+                    [0mAdvance (30%) — No Refund[0m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-desc"[39m
+                  [36m>[39m
+                    [0mIf you paid only the 30% advance and cancel, no refund is issued.[0m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"policy-row"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"policy-icon"[39m
+                [36m>[39m
+                  [0m🚫[0m
+                [36m</span>[39m
+                [36m<div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-title"[39m
+                  [36m>[39m
+                    [0mTrip Ongoing — No Refund[0m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-desc"[39m
+                  [36m>[39m
+                    [0mNo refund once the trip has started.[0m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mGo Back[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-primary"[39m
+              [36m>[39m
+                [0mConfirm Action[0m
+                [0m →[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 10 |[39m     render([33m<[39m[33mCancellationPolicyModal[39m onClose[33m=[39m{mockOnClose} onConfirm[33m=[39m{mockOnConfirm} actionLabel[33m=[39m[32m"Confirm Action"[39m [33m/[39m[33m>[39m)[33m;[39m
+     [90m 11 |[39m     
+    [31m[1m>[22m[39m[90m 12 |[39m     expect(screen[33m.[39mgetByText([32m"Cancellation Policy & Rules"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 13 |[39m     expect(screen[33m.[39mgetByText([32m"Confirm Action"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 14 |[39m   })[33m;[39m
+     [90m 15 |[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/CancellationPolicyModal.test.js:12:19)
+
+  ● CancellationPolicyModal Component › calls onConfirm when confirm button is clicked and checkbox is checked
+
+    TestingLibraryElementError: Unable to find an accessible element with the role "button" and name `/I Agree, Proceed/i`
+
+    Here are the accessible roles:
+
+      button:
+
+      Name "✕":
+      [36m<button[39m
+        [33mclass[39m=[32m"modal-close"[39m
+      [36m/>[39m
+
+      Name "Go Back":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-ghost"[39m
+      [36m/>[39m
+
+      Name "Proceed →":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-primary"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+            [33mstyle[39m=[32m"max-width: 480px;"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"modal-title"[39m
+              [36m>[39m
+                [0m📋 Cancellation Policy[0m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"policy-box"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"policy-row"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"policy-icon"[39m
+                [36m>[39m
+                  [0m✅[0m
+                [36m</span>[39m
+                [36m<div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-title"[39m
+                  [36m>[39m
+                    [0mFull Payment — 70% Refund[0m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-desc"[39m
+                  [36m>[39m
+                    [0mIf you paid in full and cancel before the trip starts, you receive a 70% refund.[0m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"policy-row"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"policy-icon"[39m
+                [36m>[39m
+                  [0m⚠️[0m
+                [36m</span>[39m
+                [36m<div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-title"[39m
+                  [36m>[39m
+                    [0mAdvance (30%) — No Refund[0m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-desc"[39m
+                  [36m>[39m
+                    [0mIf you paid only the 30% advance and cancel, no refund is issued.[0m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"policy-row"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"policy-icon"[39m
+                [36m>[39m
+                  [0m🚫[0m
+                [36m</span>[39m
+                [36m<div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-title"[39m
+                  [36m>[39m
+                    [0mTrip Ongoing — No Refund[0m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"policy-desc"[39m
+                  [36m>[39m
+                    [0mNo refund once the trip has started.[0m
+                  [36m</div>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mGo Back[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-primary"[39m
+              [36m>[39m
+                [0mProceed[0m
+                [0m →[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 29 |[39m     render([33m<[39m[33mCancellationPolicyModal[39m onClose[33m=[39m{jest[33m.[39mfn()} onConfirm[33m=[39m{mockOnConfirm} [33m/[39m[33m>[39m)[33m;[39m
+     [90m 30 |[39m     
+    [31m[1m>[22m[39m[90m 31 |[39m     [36mconst[39m confirmBtn [33m=[39m screen[33m.[39mgetByRole([32m"button"[39m[33m,[39m { name[33m:[39m [35m/I Agree, Proceed/i[39m })[33m;[39m
+     [90m    |[39m                               [31m[1m^[22m[39m
+     [90m 32 |[39m     expect(confirmBtn)[33m.[39mtoBeDisabled()[33m;[39m
+     [90m 33 |[39m
+     [90m 34 |[39m     [36mconst[39m checkbox [33m=[39m screen[33m.[39mgetByRole([32m"checkbox"[39m)[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByRole (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/CancellationPolicyModal.test.js:31:31)
+
+FAIL src/components/CancelConfirmModal.test.js
+  ● CancelConfirmModal Component › renders correctly
+
+    TestingLibraryElementError: Unable to find an element with the text: Cancel Booking. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+            [33mstyle[39m=[32m"max-width: 440px;"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"modal-title"[39m
+              [36m>[39m
+                [0mCancel Booking?[0m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mstyle[39m=[32m"margin-bottom: 20px;"[39m
+            [36m>[39m
+              [0mDestination: [0m
+              [36m<strong>[39m
+                [0mTest Dest[0m
+              [36m</strong>[39m
+            [36m</p>[39m
+            [36m<div[39m
+              [33mstyle[39m=[32m"text-align: center; padding: 24px;"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"spinner"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mKeep Booking[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-cancel"[39m
+                [33mdisabled[39m=[32m""[39m
+                [33mstyle[39m=[32m"flex: 2;"[39m
+              [36m>[39m
+                [0mYes, Cancel Booking[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 12 |[39m     render([33m<[39m[33mCancelConfirmModal[39m booking[33m=[39m{mockBooking} refundAmt[33m=[39m{[35m1000[39m} onClose[33m=[39m{mockOnClose} onConfirm[33m=[39m{mockOnConfirm} loading[33m=[39m{[36mfalse[39m} [33m/[39m[33m>[39m)[33m;[39m
+     [90m 13 |[39m     
+    [31m[1m>[22m[39m[90m 14 |[39m     expect(screen[33m.[39mgetByText([32m"Cancel Booking"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 15 |[39m     expect(screen[33m.[39mgetByText([32m"Test Dest"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 16 |[39m     expect(screen[33m.[39mgetByText([32m"₹1,000"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 17 |[39m   })[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/CancelConfirmModal.test.js:14:19)
+
+  ● CancelConfirmModal Component › calls onClose when cancel is clicked
+
+    TestingLibraryElementError: Unable to find an accessible element with the role "button" and name `/No, Keep Booking/i`
+
+    Here are the accessible roles:
+
+      button:
+
+      Name "✕":
+      [36m<button[39m
+        [33mclass[39m=[32m"modal-close"[39m
+      [36m/>[39m
+
+      Name "Keep Booking":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-ghost"[39m
+      [36m/>[39m
+
+      Name "Yes, Cancel Booking":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-cancel"[39m
+        [33mdisabled[39m=[32m""[39m
+        [33mstyle[39m=[32m"flex: 2;"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      paragraph:
+
+      Name "":
+      [36m<p[39m
+        [33mstyle[39m=[32m"margin-bottom: 20px;"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      strong:
+
+      Name "":
+      [36m<strong />[39m
+
+      --------------------------------------------------
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+            [33mstyle[39m=[32m"max-width: 440px;"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"modal-title"[39m
+              [36m>[39m
+                [0mCancel Booking?[0m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mstyle[39m=[32m"margin-bottom: 20px;"[39m
+            [36m>[39m
+              [0mDestination: [0m
+              [36m<strong>[39m
+                [0mTest Dest[0m
+              [36m</strong>[39m
+            [36m</p>[39m
+            [36m<div[39m
+              [33mstyle[39m=[32m"text-align: center; padding: 24px;"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"spinner"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mKeep Booking[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-cancel"[39m
+                [33mdisabled[39m=[32m""[39m
+                [33mstyle[39m=[32m"flex: 2;"[39m
+              [36m>[39m
+                [0mYes, Cancel Booking[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 24 |[39m     expect(mockOnClose)[33m.[39mtoHaveBeenCalled()[33m;[39m
+     [90m 25 |[39m     
+    [31m[1m>[22m[39m[90m 26 |[39m     fireEvent[33m.[39mclick(screen[33m.[39mgetByRole([32m"button"[39m[33m,[39m { name[33m:[39m [35m/No, Keep Booking/i[39m }))[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m 27 |[39m     expect(mockOnClose)[33m.[39mtoHaveBeenCalledTimes([35m2[39m)[33m;[39m
+     [90m 28 |[39m   })[33m;[39m
+     [90m 29 |[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByRole (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/CancelConfirmModal.test.js:26:28)
+
+  ● CancelConfirmModal Component › calls onConfirm when confirm button is clicked
+
+    expect(jest.fn()).toHaveBeenCalled()
+
+    Expected number of calls: >= 1
+    Received number of calls:    0
+
+    [0m [90m 34 |[39m     [36mconst[39m confirmBtn [33m=[39m screen[33m.[39mgetByRole([32m"button"[39m[33m,[39m { name[33m:[39m [35m/Yes, Cancel Booking/i[39m })[33m;[39m
+     [90m 35 |[39m     fireEvent[33m.[39mclick(confirmBtn)[33m;[39m
+    [31m[1m>[22m[39m[90m 36 |[39m     expect(mockOnConfirm)[33m.[39mtoHaveBeenCalled()[33m;[39m
+     [90m    |[39m                           [31m[1m^[22m[39m
+     [90m 37 |[39m   })[33m;[39m
+     [90m 38 |[39m
+     [90m 39 |[39m   test([32m"shows loading state"[39m[33m,[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (src/components/CancelConfirmModal.test.js:36:27)
+
+  ● CancelConfirmModal Component › shows loading state
+
+    TestingLibraryElementError: Unable to find an element with the text: /Cancelling/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+            [33mstyle[39m=[32m"max-width: 440px;"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"modal-title"[39m
+              [36m>[39m
+                [0mCancel Booking?[0m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mstyle[39m=[32m"margin-bottom: 20px;"[39m
+            [36m>[39m
+              [0mDestination: [0m
+              [36m<strong>[39m
+                [0mTest Dest[0m
+              [36m</strong>[39m
+            [36m</p>[39m
+            [36m<div[39m
+              [33mstyle[39m=[32m"text-align: center; padding: 24px;"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"spinner"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mKeep Booking[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-cancel"[39m
+                [33mdisabled[39m=[32m""[39m
+                [33mstyle[39m=[32m"flex: 2;"[39m
+              [36m>[39m
+                [0mYes, Cancel Booking[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 39 |[39m   test([32m"shows loading state"[39m[33m,[39m () [33m=>[39m {
+     [90m 40 |[39m     render([33m<[39m[33mCancelConfirmModal[39m booking[33m=[39m{mockBooking} refundAmt[33m=[39m{[35m1000[39m} onClose[33m=[39m{jest[33m.[39mfn()} onConfirm[33m=[39m{jest[33m.[39mfn()} loading[33m=[39m{[36mtrue[39m} [33m/[39m[33m>[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 41 |[39m     expect(screen[33m.[39mgetByText([35m/Cancelling/i[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 42 |[39m     expect(screen[33m.[39mgetByRole([32m"button"[39m[33m,[39m { name[33m:[39m [35m/Cancelling/i[39m }))[33m.[39mtoBeDisabled()[33m;[39m
+     [90m 43 |[39m   })[33m;[39m
+     [90m 44 |[39m })[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/CancelConfirmModal.test.js:41:19)
+
+FAIL src/components/BookingModal.test.js
+  ● BookingModal Component › renders correctly
+
+    TestingLibraryElementError: Unable to find an element with the text: Confirm Booking. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"modal-title"[39m
+                [36m>[39m
+                  [0mTest Package[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"modal-sub"[39m
+                [36m>[39m
+                  [0m5[0m
+                  [0m days · ₹[0m
+                  [0m15,000[0m
+                  [0m per person[0m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mPeople[0m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"counter"[39m
+              [36m>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"counter-btn"[39m
+                [36m>[39m
+                  [0m−[0m
+                [36m</button>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"counter-val"[39m
+                [36m>[39m
+                  [0m1[0m
+                [36m</span>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"counter-btn"[39m
+                [36m>[39m
+                  [0m+[0m
+                [36m</button>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mStart Date[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"form-input"[39m
+                [33mmin[39m=[32m"2026-05-07"[39m
+                [33mtype[39m=[32m"date"[39m
+                [33mvalue[39m=[32m"2026-05-07"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mTraveller Names[0m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"names-grid"[39m
+              [36m>[39m
+                [36m<input[39m
+                  [33mclass[39m=[32m"form-input"[39m
+                  [33mplaceholder[39m=[32m"Traveller 1"[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m/>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-summary"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPackage × [0m
+                  [0m1[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0m₹[0m
+                  [0m15,000[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+                [33mstyle[39m=[32m"margin-top: 8px; margin-bottom: 8px;"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPayment Method[0m
+                [36m</span>[39m
+                [36m<div[39m
+                  [33mstyle[39m=[32m"display: flex; gap: 12px; font-size: 0.85rem;"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33mchecked[39m=[32m""[39m
+                      [33mtype[39m=[32m"radio"[39m
+                    [36m/>[39m
+                    [0mOnline[0m
+                  [36m</label>[39m
+                  [36m<label[39m
+                    [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33mtype[39m=[32m"radio"[39m
+                    [36m/>[39m
+                    [0mCash[0m
+                  [36m</label>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"payment-toggle"[39m
+                  [33mstyle[39m=[32m"opacity: 1;"[39m
+                [36m>[39m
+                  [36m<input[39m
+                    [33mtype[39m=[32m"checkbox"[39m
+                  [36m/>[39m
+                  [36m<span>[39m
+                    [0mPay full amount now[0m
+                  [36m</span>[39m
+                [36m</label>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"price-amber"[39m
+                [36m>[39m
+                  [0m30% advance[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row price-total"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPay Now[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0m₹[0m
+                  [0m4,500[0m
+                [36m</span>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn-link"[39m
+              [33mstyle[39m=[32m"margin-bottom: 16px;"[39m
+            [36m>[39m
+              [0m▼ View Itinerary Preview[0m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mCancel[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-primary"[39m
+              [36m>[39m
+                [0mBook Now →[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 23 |[39m     render([33m<[39m[33mBookingModal[39m pkg[33m=[39m{mockPkg} email[33m=[39m[32m"test@test.com"[39m onClose[33m=[39m{jest[33m.[39mfn()} onToast[33m=[39m{jest[33m.[39mfn()} onSwitchToTrips[33m=[39m{jest[33m.[39mfn()} [33m/[39m[33m>[39m)[33m;[39m
+     [90m 24 |[39m     
+    [31m[1m>[22m[39m[90m 25 |[39m     expect(screen[33m.[39mgetByText([32m"Confirm Booking"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 26 |[39m     expect(screen[33m.[39mgetByText([32m"Test Package"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 27 |[39m     expect(screen[33m.[39mgetByText([32m"₹15,000 / person"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 28 |[39m   })[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/BookingModal.test.js:25:19)
+
+  ● BookingModal Component › calculates total correctly when people change
+
+    TestingLibraryElementError: Unable to find an accessible element with the role "combobox"
+
+    Here are the accessible roles:
+
+      button:
+
+      Name "✕":
+      [36m<button[39m
+        [33mclass[39m=[32m"modal-close"[39m
+      [36m/>[39m
+
+      Name "−":
+      [36m<button[39m
+        [33mclass[39m=[32m"counter-btn"[39m
+      [36m/>[39m
+
+      Name "+":
+      [36m<button[39m
+        [33mclass[39m=[32m"counter-btn"[39m
+      [36m/>[39m
+
+      Name "▼ View Itinerary Preview":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-link"[39m
+        [33mstyle[39m=[32m"margin-bottom: 16px;"[39m
+      [36m/>[39m
+
+      Name "Cancel":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-ghost"[39m
+      [36m/>[39m
+
+      Name "Book Now →":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-primary"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      textbox:
+
+      Name "":
+      [36m<input[39m
+        [33mclass[39m=[32m"form-input"[39m
+        [33mplaceholder[39m=[32m"Traveller 1"[39m
+        [33mvalue[39m=[32m""[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      radio:
+
+      Name "Online":
+      [36m<input[39m
+        [33mchecked[39m=[32m""[39m
+        [33mtype[39m=[32m"radio"[39m
+      [36m/>[39m
+
+      Name "Cash":
+      [36m<input[39m
+        [33mtype[39m=[32m"radio"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      checkbox:
+
+      Name "Pay full amount now":
+      [36m<input[39m
+        [33mtype[39m=[32m"checkbox"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"modal-title"[39m
+                [36m>[39m
+                  [0mTest Package[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"modal-sub"[39m
+                [36m>[39m
+                  [0m5[0m
+                  [0m days · ₹[0m
+                  [0m15,000[0m
+                  [0m per person[0m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mPeople[0m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"counter"[39m
+              [36m>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"counter-btn"[39m
+                [36m>[39m
+                  [0m−[0m
+                [36m</button>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"counter-val"[39m
+                [36m>[39m
+                  [0m1[0m
+                [36m</span>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"counter-btn"[39m
+                [36m>[39m
+                  [0m+[0m
+                [36m</button>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mStart Date[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"form-input"[39m
+                [33mmin[39m=[32m"2026-05-07"[39m
+                [33mtype[39m=[32m"date"[39m
+                [33mvalue[39m=[32m"2026-05-07"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mTraveller Names[0m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"names-grid"[39m
+              [36m>[39m
+                [36m<input[39m
+                  [33mclass[39m=[32m"form-input"[39m
+                  [33mplaceholder[39m=[32m"Traveller 1"[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m/>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-summary"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPackage × [0m
+                  [0m1[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0m₹[0m
+                  [0m15,000[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+                [33mstyle[39m=[32m"margin-top: 8px; margin-bottom: 8px;"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPayment Method[0m
+                [36m</span>[39m
+                [36m<div[39m
+                  [33mstyle[39m=[32m"display: flex; gap: 12px; font-size: 0.85rem;"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33mchecked[39m=[32m""[39m
+                      [33mtype[39m=[32m"radio"[39m
+                    [36m/>[39m
+                    [0mOnline[0m
+                  [36m</label>[39m
+                  [36m<label[39m
+                    [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33mtype[39m=[32m"radio"[39m
+                    [36m/>[39m
+                    [0mCash[0m
+                  [36m</label>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"payment-toggle"[39m
+                  [33mstyle[39m=[32m"opacity: 1;"[39m
+                [36m>[39m
+                  [36m<input[39m
+                    [33mtype[39m=[32m"checkbox"[39m
+                  [36m/>[39m
+                  [36m<span>[39m
+                    [0mPay full amount now[0m
+                  [36m</span>[39m
+                [36m</label>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"price-amber"[39m
+                [36m>[39m
+                  [0m30% advance[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row price-total"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPay Now[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0m₹[0m
+                  [0m4,500[0m
+                [36m</span>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn-link"[39m
+              [33mstyle[39m=[32m"margin-bottom: 16px;"[39m
+            [36m>[39m
+              [0m▼ View Itinerary Preview[0m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mCancel[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-primary"[39m
+              [36m>[39m
+                [0mBook Now →[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 31 |[39m     render([33m<[39m[33mBookingModal[39m pkg[33m=[39m{mockPkg} email[33m=[39m[32m"test@test.com"[39m onClose[33m=[39m{jest[33m.[39mfn()} onToast[33m=[39m{jest[33m.[39mfn()} onSwitchToTrips[33m=[39m{jest[33m.[39mfn()} [33m/[39m[33m>[39m)[33m;[39m
+     [90m 32 |[39m     
+    [31m[1m>[22m[39m[90m 33 |[39m     [36mconst[39m select [33m=[39m screen[33m.[39mgetByRole([32m"combobox"[39m)[33m;[39m
+     [90m    |[39m                           [31m[1m^[22m[39m
+     [90m 34 |[39m     fireEvent[33m.[39mchange(select[33m,[39m { target[33m:[39m { value[33m:[39m [32m"3"[39m } })[33m;[39m
+     [90m 35 |[39m     
+     [90m 36 |[39m     expect(screen[33m.[39mgetByText([32m"₹45,000"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m [90m// 15000 * 3[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByRole (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/BookingModal.test.js:33:27)
+
+  ● BookingModal Component › shows error if names are incomplete
+
+    TestingLibraryElementError: Unable to find an accessible element with the role "button" and name `/Confirm & Pay/i`
+
+    Here are the accessible roles:
+
+      button:
+
+      Name "✕":
+      [36m<button[39m
+        [33mclass[39m=[32m"modal-close"[39m
+      [36m/>[39m
+
+      Name "−":
+      [36m<button[39m
+        [33mclass[39m=[32m"counter-btn"[39m
+      [36m/>[39m
+
+      Name "+":
+      [36m<button[39m
+        [33mclass[39m=[32m"counter-btn"[39m
+      [36m/>[39m
+
+      Name "▼ View Itinerary Preview":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-link"[39m
+        [33mstyle[39m=[32m"margin-bottom: 16px;"[39m
+      [36m/>[39m
+
+      Name "Cancel":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-ghost"[39m
+      [36m/>[39m
+
+      Name "Book Now →":
+      [36m<button[39m
+        [33mclass[39m=[32m"btn-primary"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      textbox:
+
+      Name "":
+      [36m<input[39m
+        [33mclass[39m=[32m"form-input"[39m
+        [33mplaceholder[39m=[32m"Traveller 1"[39m
+        [33mvalue[39m=[32m""[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      radio:
+
+      Name "Online":
+      [36m<input[39m
+        [33mchecked[39m=[32m""[39m
+        [33mtype[39m=[32m"radio"[39m
+      [36m/>[39m
+
+      Name "Cash":
+      [36m<input[39m
+        [33mtype[39m=[32m"radio"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+      checkbox:
+
+      Name "Pay full amount now":
+      [36m<input[39m
+        [33mtype[39m=[32m"checkbox"[39m
+      [36m/>[39m
+
+      --------------------------------------------------
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"modal-overlay"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"modal"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-head"[39m
+            [36m>[39m
+              [36m<div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"modal-title"[39m
+                [36m>[39m
+                  [0mTest Package[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"modal-sub"[39m
+                [36m>[39m
+                  [0m5[0m
+                  [0m days · ₹[0m
+                  [0m15,000[0m
+                  [0m per person[0m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"modal-close"[39m
+              [36m>[39m
+                [0m✕[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mPeople[0m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"counter"[39m
+              [36m>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"counter-btn"[39m
+                [36m>[39m
+                  [0m−[0m
+                [36m</button>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"counter-val"[39m
+                [36m>[39m
+                  [0m1[0m
+                [36m</span>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"counter-btn"[39m
+                [36m>[39m
+                  [0m+[0m
+                [36m</button>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mStart Date[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"form-input"[39m
+                [33mmin[39m=[32m"2026-05-07"[39m
+                [33mtype[39m=[32m"date"[39m
+                [33mvalue[39m=[32m"2026-05-07"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-section"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"form-label"[39m
+              [36m>[39m
+                [0mTraveller Names[0m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"names-grid"[39m
+              [36m>[39m
+                [36m<input[39m
+                  [33mclass[39m=[32m"form-input"[39m
+                  [33mplaceholder[39m=[32m"Traveller 1"[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m/>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-summary"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPackage × [0m
+                  [0m1[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0m₹[0m
+                  [0m15,000[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+                [33mstyle[39m=[32m"margin-top: 8px; margin-bottom: 8px;"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPayment Method[0m
+                [36m</span>[39m
+                [36m<div[39m
+                  [33mstyle[39m=[32m"display: flex; gap: 12px; font-size: 0.85rem;"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33mchecked[39m=[32m""[39m
+                      [33mtype[39m=[32m"radio"[39m
+                    [36m/>[39m
+                    [0mOnline[0m
+                  [36m</label>[39m
+                  [36m<label[39m
+                    [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33mtype[39m=[32m"radio"[39m
+                    [36m/>[39m
+                    [0mCash[0m
+                  [36m</label>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"payment-toggle"[39m
+                  [33mstyle[39m=[32m"opacity: 1;"[39m
+                [36m>[39m
+                  [36m<input[39m
+                    [33mtype[39m=[32m"checkbox"[39m
+                  [36m/>[39m
+                  [36m<span>[39m
+                    [0mPay full amount now[0m
+                  [36m</span>[39m
+                [36m</label>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"price-amber"[39m
+                [36m>[39m
+                  [0m30% advance[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"price-row price-total"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mPay Now[0m
+                [36m</span>[39m
+                [36m<span>[39m
+                  [0m₹[0m
+                  [0m4,500[0m
+                [36m</span>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn-link"[39m
+              [33mstyle[39m=[32m"margin-bottom: 16px;"[39m
+            [36m>[39m
+              [0m▼ View Itinerary Preview[0m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"modal-actions"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-ghost"[39m
+              [36m>[39m
+                [0mCancel[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn-primary"[39m
+              [36m>[39m
+                [0mBook Now →[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 40 |[39m     render([33m<[39m[33mBookingModal[39m pkg[33m=[39m{mockPkg} email[33m=[39m[32m"test@test.com"[39m onClose[33m=[39m{jest[33m.[39mfn()} onToast[33m=[39m{jest[33m.[39mfn()} onSwitchToTrips[33m=[39m{jest[33m.[39mfn()} [33m/[39m[33m>[39m)[33m;[39m
+     [90m 41 |[39m     
+    [31m[1m>[22m[39m[90m 42 |[39m     fireEvent[33m.[39mclick(screen[33m.[39mgetByRole([32m"button"[39m[33m,[39m { name[33m:[39m [35m/Confirm & Pay/i[39m }))[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m 43 |[39m     expect(screen[33m.[39mgetByText([32m"Please fill all traveller names."[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 44 |[39m   })[33m;[39m
+     [90m 45 |[39m })[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByRole (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/BookingModal.test.js:42:28)
+
+FAIL src/components/CustomPackageTab.test.js
+  ● CustomPackageTab Component › renders custom form correctly
+
+    TestingLibraryElementError: Unable to find an element with the text: Build Your Dream Trip. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"custom-form"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"custom-form-header"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"custom-form-title"[39m
+            [36m>[39m
+              [0m✨ Build Your Custom Trip[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"custom-form-sub"[39m
+            [36m>[39m
+              [0mPrivate to your account · Your trip, your way[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mTrip Type[0m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"dest-type-toggle"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"dest-type-btn active"[39m
+              [36m>[39m
+                [0m🇮🇳 National[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"dest-type-btn "[39m
+              [36m>[39m
+                [0m🌍 International[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"fixed-price-banner"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"fixed-price-icon"[39m
+            [36m>[39m
+              [0m🇮🇳[0m
+            [36m</span>[39m
+            [36m<div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"fixed-price-label"[39m
+              [36m>[39m
+                [0mFixed Rate · [0m
+                [0mNational[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"fixed-price-amount"[39m
+              [36m>[39m
+                [0m₹[0m
+                [0m15,000[0m
+                [0m [0m
+                [36m<span>[39m
+                  [0mper person[0m
+                [36m</span>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mDestination[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mclass[39m=[32m"form-input"[39m
+              [33mplaceholder[39m=[32m"Search destination…"[39m
+              [33mstyle[39m=[32m"margin-bottom: 8px;"[39m
+              [33mvalue[39m=[32m""[39m
+            [36m/>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"form-input form-select"[39m
+              [33mdata-bs-theme[39m=[32m"dark"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m""[39m
+              [36m>[39m
+                [0m— Select —[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Andhra Pradesh"[39m
+              [36m>[39m
+                [0mAndhra Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Arunachal Pradesh"[39m
+              [36m>[39m
+                [0mArunachal Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Assam"[39m
+              [36m>[39m
+                [0mAssam[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Bihar"[39m
+              [36m>[39m
+                [0mBihar[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Chhattisgarh"[39m
+              [36m>[39m
+                [0mChhattisgarh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Goa"[39m
+              [36m>[39m
+                [0mGoa[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Gujarat"[39m
+              [36m>[39m
+                [0mGujarat[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Haryana"[39m
+              [36m>[39m
+                [0mHaryana[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Himachal Pradesh"[39m
+              [36m>[39m
+                [0mHimachal Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Jharkhand"[39m
+              [36m>[39m
+                [0mJharkhand[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Karnataka"[39m
+              [36m>[39m
+                [0mKarnataka[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Kerala"[39m
+              [36m>[39m
+                [0mKerala[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Madhya Pradesh"[39m
+              [36m>[39m
+                [0mMadhya Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Maharashtra"[39m
+              [36m>[39m
+                [0mMaharashtra[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Manipur"[39m
+              [36m>[39m
+                [0mManipur[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Meghalaya"[39m
+              [36m>[39m
+                [0mMeghalaya[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Mizoram"[39m
+              [36m>[39m
+                [0mMizoram[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Nagaland"[39m
+              [36m>[39m
+                [0mNagaland[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Odisha"[39m
+              [36m>[39m
+                [0mOdisha[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Punjab"[39m
+              [36m>[39m
+                [0mPunjab[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Rajasthan"[39m
+              [36m>[39m
+                [0mRajasthan[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Sikkim"[39m
+              [36m>[39m
+                [0mSikkim[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Tamil Nadu"[39m
+              [36m>[39m
+                [0mTamil Nadu[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Telangana"[39m
+              [36m>[39m
+                [0mTelangana[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Tripura"[39m
+              [36m>[39m
+                [0mTripura[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Uttar Pradesh"[39m
+              [36m>[39m
+                [0mUttar Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Uttarakhand"[39m
+              [36m>[39m
+                [0mUttarakhand[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"West Bengal"[39m
+              [36m>[39m
+                [0mWest Bengal[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Andaman & Nicobar Islands"[39m
+              [36m>[39m
+                [0mAndaman & Nicobar Islands[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Chandigarh"[39m
+              [36m>[39m
+                [0mChandigarh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Dadra & Nagar Haveli"[39m
+              [36m>[39m
+                [0mDadra & Nagar Haveli[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Daman & Diu"[39m
+              [36m>[39m
+                [0mDaman & Diu[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Delhi"[39m
+              [36m>[39m
+                [0mDelhi[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Jammu & Kashmir"[39m
+              [36m>[39m
+                [0mJammu & Kashmir[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Ladakh"[39m
+              [36m>[39m
+                [0mLadakh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Lakshadweep"[39m
+              [36m>[39m
+                [0mLakshadweep[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Puducherry"[39m
+              [36m>[39m
+                [0mPuducherry[0m
+              [36m</option>[39m
+            [36m</select>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mDuration (days)[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mclass[39m=[32m"form-input"[39m
+              [33mmax[39m=[32m"30"[39m
+              [33mmin[39m=[32m"1"[39m
+              [33mtype[39m=[32m"number"[39m
+              [33mvalue[39m=[32m"5"[39m
+            [36m/>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mNumber of Travellers[0m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"counter"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"counter-btn"[39m
+              [36m>[39m
+                [0m−[0m
+              [36m</button>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"counter-val"[39m
+              [36m>[39m
+                [0m1[0m
+              [36m</span>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"counter-btn"[39m
+              [36m>[39m
+                [0m+[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mTraveller Names[0m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"names-grid"[39m
+            [36m>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"form-input"[39m
+                [33mplaceholder[39m=[32m"Traveller 1 full name"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mStart Date[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mclass[39m=[32m"form-input"[39m
+              [33mmin[39m=[32m"2026-05-07"[39m
+              [33mtype[39m=[32m"date"[39m
+              [33mvalue[39m=[32m"2026-05-07"[39m
+            [36m/>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn-ghost"[39m
+            [33mstyle[39m=[32m"width: 100%; margin-bottom: 16px;"[39m
+          [36m>[39m
+            [0m🔍 Generate Itinerary Preview[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"price-summary"[39m
+            [33mstyle[39m=[32m"margin-top: 16px;"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mRate per person[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m₹[0m
+                [0m15,000[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mTravellers[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m× [0m
+                [0m1[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mTotal[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m₹[0m
+                [0m15,000[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+              [33mstyle[39m=[32m"margin-top: 8px; margin-bottom: 8px;"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mPayment Method[0m
+              [36m</span>[39m
+              [36m<div[39m
+                [33mstyle[39m=[32m"display: flex; gap: 12px; font-size: 0.85rem;"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                [36m>[39m
+                  [36m<input[39m
+                    [33mchecked[39m=[32m""[39m
+                    [33mtype[39m=[32m"radio"[39m
+                  [36m/>[39m
+                  [0mOnline[0m
+                [36m</label>[39m
+                [36m<label[39m
+                  [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                [36m>[39m
+                  [36m<input[39m
+                    [33mtype[39m=[32m"radio"[39m
+                  [36m/>[39m
+                  [0mCash[0m
+                [36m</label>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"payment-toggle"[39m
+                [33mstyle[39m=[32m"opacity: 1;"[39m
+              [36m>[39m
+                [36m<input[39m
+                  [33mtype[39m=[32m"checkbox"[39m
+                [36m/>[39m
+                [36m<span>[39m
+                  [0mPay full amount now[0m
+                [36m</span>[39m
+              [36m</label>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"price-amber"[39m
+              [36m>[39m
+                [0m30% advance[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row price-total"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mPay Now[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m₹[0m
+                [0m4,500[0m
+              [36m</span>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn-primary"[39m
+            [33mstyle[39m=[32m"margin-top: 16px;"[39m
+          [36m>[39m
+            [0m✈ Book Custom Trip →[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 14 |[39m     render([33m<[39m[33mCustomPackageTab[39m email[33m=[39m[32m"test@test.com"[39m onToast[33m=[39m{jest[33m.[39mfn()} onSwitchToTrips[33m=[39m{jest[33m.[39mfn()} [33m/[39m[33m>[39m)[33m;[39m
+     [90m 15 |[39m     
+    [31m[1m>[22m[39m[90m 16 |[39m     expect(screen[33m.[39mgetByText([32m"Build Your Dream Trip"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 17 |[39m     expect(screen[33m.[39mgetByText([32m"Total"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 18 |[39m     expect(screen[33m.[39mgetByRole([32m"button"[39m[33m,[39m { name[33m:[39m [35m/Book Custom Trip/i[39m }))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 19 |[39m   })[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/CustomPackageTab.test.js:16:19)
+
+  ● CustomPackageTab Component › calculates price based on destination type and people
+
+    TestingLibraryElementError: Found multiple elements with the text: ₹15,000
+
+    Here are the matching elements:
+
+    Ignored nodes: comments, script, style
+    [36m<div[39m
+      [33mclass[39m=[32m"fixed-price-amount"[39m
+    [36m>[39m
+      [0m₹[0m
+      [0m15,000[0m
+      [0m [0m
+      [36m<span>[39m
+        [0mper person[0m
+      [36m</span>[39m
+    [36m</div>[39m
+
+    Ignored nodes: comments, script, style
+    [36m<span>[39m
+      [0m₹[0m
+      [0m15,000[0m
+    [36m</span>[39m
+
+    Ignored nodes: comments, script, style
+    [36m<span>[39m
+      [0m₹[0m
+      [0m15,000[0m
+    [36m</span>[39m
+
+    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"custom-form"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"custom-form-header"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"custom-form-title"[39m
+            [36m>[39m
+              [0m✨ Build Your Custom Trip[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"custom-form-sub"[39m
+            [36m>[39m
+              [0mPrivate to your account · Your trip, your way[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mTrip Type[0m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"dest-type-toggle"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"dest-type-btn active"[39m
+              [36m>[39m
+                [0m🇮🇳 National[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"dest-type-btn "[39m
+              [36m>[39m
+                [0m🌍 International[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"fixed-price-banner"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"fixed-price-icon"[39m
+            [36m>[39m
+              [0m🇮🇳[0m
+            [36m</span>[39m
+            [36m<div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"fixed-price-label"[39m
+              [36m>[39m
+                [0mFixed Rate · [0m
+                [0mNational[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"fixed-price-amount"[39m
+              [36m>[39m
+                [0m₹[0m
+                [0m15,000[0m
+                [0m [0m
+                [36m<span>[39m
+                  [0mper person[0m
+                [36m</span>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mDestination[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mclass[39m=[32m"form-input"[39m
+              [33mplaceholder[39m=[32m"Search destination…"[39m
+              [33mstyle[39m=[32m"margin-bottom: 8px;"[39m
+              [33mvalue[39m=[32m""[39m
+            [36m/>[39m
+            [36m<select[39m
+              [33mclass[39m=[32m"form-input form-select"[39m
+              [33mdata-bs-theme[39m=[32m"dark"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m""[39m
+              [36m>[39m
+                [0m— Select —[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Andhra Pradesh"[39m
+              [36m>[39m
+                [0mAndhra Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Arunachal Pradesh"[39m
+              [36m>[39m
+                [0mArunachal Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Assam"[39m
+              [36m>[39m
+                [0mAssam[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Bihar"[39m
+              [36m>[39m
+                [0mBihar[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Chhattisgarh"[39m
+              [36m>[39m
+                [0mChhattisgarh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Goa"[39m
+              [36m>[39m
+                [0mGoa[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Gujarat"[39m
+              [36m>[39m
+                [0mGujarat[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Haryana"[39m
+              [36m>[39m
+                [0mHaryana[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Himachal Pradesh"[39m
+              [36m>[39m
+                [0mHimachal Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Jharkhand"[39m
+              [36m>[39m
+                [0mJharkhand[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Karnataka"[39m
+              [36m>[39m
+                [0mKarnataka[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Kerala"[39m
+              [36m>[39m
+                [0mKerala[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Madhya Pradesh"[39m
+              [36m>[39m
+                [0mMadhya Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Maharashtra"[39m
+              [36m>[39m
+                [0mMaharashtra[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Manipur"[39m
+              [36m>[39m
+                [0mManipur[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Meghalaya"[39m
+              [36m>[39m
+                [0mMeghalaya[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Mizoram"[39m
+              [36m>[39m
+                [0mMizoram[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Nagaland"[39m
+              [36m>[39m
+                [0mNagaland[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Odisha"[39m
+              [36m>[39m
+                [0mOdisha[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Punjab"[39m
+              [36m>[39m
+                [0mPunjab[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Rajasthan"[39m
+              [36m>[39m
+                [0mRajasthan[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Sikkim"[39m
+              [36m>[39m
+                [0mSikkim[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Tamil Nadu"[39m
+              [36m>[39m
+                [0mTamil Nadu[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Telangana"[39m
+              [36m>[39m
+                [0mTelangana[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Tripura"[39m
+              [36m>[39m
+                [0mTripura[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Uttar Pradesh"[39m
+              [36m>[39m
+                [0mUttar Pradesh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Uttarakhand"[39m
+              [36m>[39m
+                [0mUttarakhand[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"West Bengal"[39m
+              [36m>[39m
+                [0mWest Bengal[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Andaman & Nicobar Islands"[39m
+              [36m>[39m
+                [0mAndaman & Nicobar Islands[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Chandigarh"[39m
+              [36m>[39m
+                [0mChandigarh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Dadra & Nagar Haveli"[39m
+              [36m>[39m
+                [0mDadra & Nagar Haveli[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Daman & Diu"[39m
+              [36m>[39m
+                [0mDaman & Diu[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Delhi"[39m
+              [36m>[39m
+                [0mDelhi[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Jammu & Kashmir"[39m
+              [36m>[39m
+                [0mJammu & Kashmir[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Ladakh"[39m
+              [36m>[39m
+                [0mLadakh[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Lakshadweep"[39m
+              [36m>[39m
+                [0mLakshadweep[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"Puducherry"[39m
+              [36m>[39m
+                [0mPuducherry[0m
+              [36m</option>[39m
+            [36m</select>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mDuration (days)[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mclass[39m=[32m"form-input"[39m
+              [33mmax[39m=[32m"30"[39m
+              [33mmin[39m=[32m"1"[39m
+              [33mtype[39m=[32m"number"[39m
+              [33mvalue[39m=[32m"5"[39m
+            [36m/>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mNumber of Travellers[0m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"counter"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"counter-btn"[39m
+              [36m>[39m
+                [0m−[0m
+              [36m</button>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"counter-val"[39m
+              [36m>[39m
+                [0m1[0m
+              [36m</span>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"counter-btn"[39m
+              [36m>[39m
+                [0m+[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mTraveller Names[0m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"names-grid"[39m
+            [36m>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"form-input"[39m
+                [33mplaceholder[39m=[32m"Traveller 1 full name"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"form-group"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"form-label"[39m
+            [36m>[39m
+              [0mStart Date[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mclass[39m=[32m"form-input"[39m
+              [33mmin[39m=[32m"2026-05-07"[39m
+              [33mtype[39m=[32m"date"[39m
+              [33mvalue[39m=[32m"2026-05-07"[39m
+            [36m/>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn-ghost"[39m
+            [33mstyle[39m=[32m"width: 100%; margin-bottom: 16px;"[39m
+          [36m>[39m
+            [0m🔍 Generate Itinerary Preview[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"price-summary"[39m
+            [33mstyle[39m=[32m"margin-top: 16px;"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mRate per person[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m₹[0m
+                [0m15,000[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mTravellers[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m× [0m
+                [0m1[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mTotal[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m₹[0m
+                [0m15,000[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+              [33mstyle[39m=[32m"margin-top: 8px; margin-bottom: 8px;"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mPayment Method[0m
+              [36m</span>[39m
+              [36m<div[39m
+                [33mstyle[39m=[32m"display: flex; gap: 12px; font-size: 0.85rem;"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                [36m>[39m
+                  [36m<input[39m
+                    [33mchecked[39m=[32m""[39m
+                    [33mtype[39m=[32m"radio"[39m
+                  [36m/>[39m
+                  [0mOnline[0m
+                [36m</label>[39m
+                [36m<label[39m
+                  [33mstyle[39m=[32m"display: flex; align-items: center; gap: 4px; cursor: pointer;"[39m
+                [36m>[39m
+                  [36m<input[39m
+                    [33mtype[39m=[32m"radio"[39m
+                  [36m/>[39m
+                  [0mCash[0m
+                [36m</label>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"payment-toggle"[39m
+                [33mstyle[39m=[32m"opacity: 1;"[39m
+              [36m>[39m
+                [36m<input[39m
+                  [33mtype[39m=[32m"checkbox"[39m
+                [36m/>[39m
+                [36m<span>[39m
+                  [0mPay full amount now[0m
+                [36m</span>[39m
+              [36m</label>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"price-amber"[39m
+              [36m>[39m
+                [0m30% advance[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"price-row price-total"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mPay Now[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m₹[0m
+                [0m4,500[0m
+              [36m</span>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn-primary"[39m
+            [33mstyle[39m=[32m"margin-top: 16px;"[39m
+          [36m>[39m
+            [0m✈ Book Custom Trip →[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+    [0m [90m 23 |[39m     
+     [90m 24 |[39m     [90m// Default is NATIONAL, price per person is 15000. People=1 => 15000.[39m
+    [31m[1m>[22m[39m[90m 25 |[39m     expect(screen[33m.[39mgetByText([32m"₹15,000"[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                   [31m[1m^[22m[39m
+     [90m 26 |[39m     
+     [90m 27 |[39m     [90m// Change to 2 people[39m
+     [90m 28 |[39m     [36mconst[39m peopleSelect [33m=[39m screen[33m.[39mgetByRole([32m"combobox"[39m[33m,[39m { name[33m:[39m [35m/Travelers/i[39m })[33m;[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at getElementError (node_modules/@testing-library/dom/dist/query-helpers.js:20:35)
+      at getMultipleElementsFoundError (node_modules/@testing-library/dom/dist/query-helpers.js:23:10)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
+      at Object.<anonymous> (src/components/CustomPackageTab.test.js:25:19)
+
+Test Suites: 12 failed, 5 passed, 17 total
+Tests:       20 failed, 34 passed, 54 total
+Snapshots:   0 total
+Time:        4.138 s
+Ran all test suites.

@@ -1,0 +1,6 @@
+projectKey=travelmate-ui
+serverUrl=http://localhost:9000
+serverVersion=26.4.0.121862
+dashboardUrl=http://localhost:9000/dashboard?id=travelmate-ui
+ceTaskId=dbaf9f21-c4cd-4aee-b883-680564e7a843
+ceTaskUrl=http://localhost:9000/api/ce/task?id=dbaf9f21-c4cd-4aee-b883-680564e7a843
