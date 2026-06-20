@@ -1,0 +1,274 @@
+version: "3.9"
+
+# ══════════════════════════════════════════════════════════════
+#  TravelMate — Full-Stack Docker Compose
+#
+#  Services (boot order):git
+#    1. mysql          → shared database server
+#    2. rabbitmq       → message broker             (5672 / 15672)
+#    3. discovery      → Eureka service registry  (8761)
+#    4. gateway        → API Gateway              (8080)
+#    5. auth-service   → Login / JWT              (8081)
+#    6. trip-service   → Trip packages            (8082)
+#    7. booking-service→ Bookings + Razorpay      (8083)
+#    8. notification   → Email via Gmail SMTP     (8084)
+#    9. admin-service  → Admin CRUD               (8085)
+#   10. frontend       → React (served by Nginx)  (3000)
+# ══════════════════════════════════════════════════════════════
+
+services:
+
+  # ────────────────────────────────────────────
+  # 1. MySQL — single server for all databases
+  # ────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: travelmate-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      # Creates the first DB; others are created by Spring JPA (ddl-auto=update)
+      MYSQL_DATABASE: travelmate_auth
+    ports:
+      - "3307:3306"   # host:3307 → container:3306 (avoids clash with local Windows MySQL on 3306)
+    volumes:
+      - mysql_data:/var/lib/mysql      # persist DB data across restarts
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql  # create remaining DBs
+    networks:
+      - travelmate-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pmysql"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ────────────────────────────────────────────
+  # 2. RabbitMQ — message broker for notifications
+  # ────────────────────────────────────────────
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: travelmate-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"    # AMQP protocol port
+      - "15672:15672"  # RabbitMQ management UI (http://localhost:15672, guest/guest)
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - travelmate-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+
+  # ────────────────────────────────────────────
+  # 2. Eureka Discovery Service
+  # ────────────────────────────────────────────
+  discovery:
+    build:
+      context: ./discovery-service
+      dockerfile: Dockerfile
+    container_name: travelmate-discovery
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    networks:
+      - travelmate-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+
+  # ────────────────────────────────────────────
+  # 3. API Gateway
+  # ────────────────────────────────────────────
+  gateway:
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    container_name: travelmate-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Override Eureka URL to use Docker service name instead of localhost
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    depends_on:
+      discovery:
+        condition: service_healthy
+    networks:
+      - travelmate-network
+
+  # ────────────────────────────────────────────
+  # 4. Auth Service  (port 8081)
+  # ────────────────────────────────────────────
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: travelmate-auth
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/travelmate_auth
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+      JWT_SECRET: travelmate_secret_key_12345678901234567890
+      JWT_EXPIRATION: 86400000
+      # RabbitMQ — needed to queue OTP messages for notification-service
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    depends_on:
+      mysql:
+        condition: service_healthy
+      discovery:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - travelmate-network
+
+  # ────────────────────────────────────────────
+  # 5. Trip Service  (port 8082)
+  # ────────────────────────────────────────────
+  trip-service:
+    build:
+      context: ./trip-service
+      dockerfile: Dockerfile
+    container_name: travelmate-trip
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/travelmate_trip
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    depends_on:
+      mysql:
+        condition: service_healthy
+      discovery:
+        condition: service_healthy
+    networks:
+      - travelmate-network
+
+  # ────────────────────────────────────────────
+  # 6. Booking Service  (port 8083)
+  # ────────────────────────────────────────────
+  booking-service:
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    container_name: travelmate-booking
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/travelmate_booking
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+      RAZORPAY_KEY: rzp_test_SYwj3a2gBudlrJ
+      RAZORPAY_SECRET: yEbn9ULBbAkNawJeiRF1Xc22
+      # RabbitMQ — needed for booking confirmation, cancellation, extension and payment emails
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    depends_on:
+      mysql:
+        condition: service_healthy
+      discovery:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - travelmate-network
+
+  # ────────────────────────────────────────────
+  # 7. Notification Service  (port 8084)
+  # ────────────────────────────────────────────
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    container_name: travelmate-notification
+    restart: unless-stopped
+    ports:
+      - "8084:8084"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: mejust99999@gmail.com
+      SPRING_MAIL_PASSWORD: mcuhpsluvhndbkof
+      # Point RabbitMQ to the Docker container name instead of localhost
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    depends_on:
+      discovery:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - travelmate-network
+
+  # ────────────────────────────────────────────
+  # 8. Admin Service  (port 8085)
+  # ────────────────────────────────────────────
+  admin-service:
+    build:
+      context: ./admin-service
+      dockerfile: Dockerfile
+    container_name: travelmate-admin
+    restart: unless-stopped
+    ports:
+      - "8085:8085"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+    depends_on:
+      discovery:
+        condition: service_healthy
+    networks:
+      - travelmate-network
+
+  # ────────────────────────────────────────────
+  # 9. React Frontend  (Nginx on port 3000)
+  # ────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend/travelmate-ui
+      dockerfile: Dockerfile
+    container_name: travelmate-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"        # Nginx inside listens on 80, exposed on 3000
+    depends_on:
+      - gateway
+    networks:
+      - travelmate-network
+
+# ══════════════════════════════════════════════
+# Named volume — keeps MySQL data even after
+# `docker-compose down` (data survives restarts)
+# ══════════════════════════════════════════════
+volumes:
+  mysql_data:
+  rabbitmq_data:   # persists RabbitMQ queues/messages across restarts
+
+# ══════════════════════════════════════════════
+# All services share one internal network so
+# they can reach each other by service name
+# (e.g. "mysql", "discovery", "gateway")
+# ══════════════════════════════════════════════
+networks:
+  travelmate-network:
+    driver: bridge

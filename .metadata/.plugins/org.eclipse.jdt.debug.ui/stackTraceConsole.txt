@@ -1,0 +1,11 @@
+java.lang.NullPointerException: text
+	at java.base/java.util.Objects.requireNonNull(Objects.java:259)
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:2007)
+	at java.base/java.time.LocalDate.parse(LocalDate.java:435)
+	at java.base/java.time.LocalDate.parse(LocalDate.java:420)
+	at com.example.demo.service.BookingService.createBooking(BookingService.java:51)
+	at com.example.demo.service.BookingServiceTest.testCreateBooking(BookingServiceTest.java:42)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
