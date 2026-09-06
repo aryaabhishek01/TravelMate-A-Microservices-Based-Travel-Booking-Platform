@@ -178,6 +178,19 @@ class BookingControllerTest {
     }
 
     @Test
+    void testApproveRefund() throws Exception {
+        Booking mockBooking = new Booking();
+        mockBooking.setId(1L);
+        mockBooking.setRefundStatus("APPROVED");
+
+        when(service.approveRefund(1L)).thenReturn(mockBooking);
+
+        mockMvc.perform(post("/booking/approve-refund/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.refundStatus").value("APPROVED"));
+    }
+
+    @Test
     void testHealthCheck() throws Exception {
         mockMvc.perform(get("/booking/test"))
                 .andExpect(status().isOk())

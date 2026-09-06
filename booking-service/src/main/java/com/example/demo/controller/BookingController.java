@@ -112,6 +112,13 @@ public class BookingController {
         return service.getAllBookings();
     }
 
+    // ─── Approve refund (called by admin-service) ───
+    @PostMapping("/approve-refund/{id}")
+    public Booking approveRefund(@PathVariable Long id) {
+        log.info("[BookingController] Approve refund for booking id: {}", id);
+        return service.approveRefund(id);
+    }
+
     @GetMapping("/test")
     public String test() {
         return "Booking Service Working ✅";

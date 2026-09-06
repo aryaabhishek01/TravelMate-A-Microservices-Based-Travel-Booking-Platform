@@ -138,11 +138,17 @@ export default function ForgotPassword() {
               <input
                 className="form-input"
                 type="text"
+                inputMode="numeric"
                 placeholder="6-digit OTP"
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)}
+                maxLength={6}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                 autoFocus
+                style={{ letterSpacing: "0.3em", fontSize: "1.2rem", textAlign: "center" }}
               />
+              <small style={{ color: "#64748b", fontSize: "0.75rem", marginTop: 4, display: "block" }}>
+                Enter the 6-digit code sent to your email
+              </small>
             </div>
             <button className="btn-primary" type="submit" disabled={loading}>
               {loading ? (

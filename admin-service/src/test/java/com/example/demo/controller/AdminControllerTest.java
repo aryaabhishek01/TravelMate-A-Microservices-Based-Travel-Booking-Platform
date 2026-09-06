@@ -90,6 +90,15 @@ class AdminControllerTest {
     }
 
     @Test
+    void testApproveRefund() throws Exception {
+        when(service.approveRefund(anyLong())).thenReturn("Refund Approved");
+
+        mockMvc.perform(post("/admin/approve-refund/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Refund Approved"));
+    }
+
+    @Test
     void testGetUsers() throws Exception {
         when(service.getAllUsers()).thenReturn(Collections.emptyList());
 

@@ -24,4 +24,8 @@ public class User {
 
     private String otp;
     private java.time.LocalDateTime otpExpiry;
+
+    /** false = pending OTP verification, true = fully registered */
+    @Column(columnDefinition = "boolean default true")
+    private boolean activated = true;
 }

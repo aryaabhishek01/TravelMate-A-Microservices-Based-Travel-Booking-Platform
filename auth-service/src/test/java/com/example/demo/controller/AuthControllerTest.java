@@ -47,11 +47,13 @@ class AuthControllerTest {
         dto.setEmail("test@gmail.com");
         dto.setPassword("pass1234");
         dto.setRole("USER");
+        dto.setOtp("123456");
 
         User mockUser = new User();
         mockUser.setEmail("test@gmail.com");
+        mockUser.setName("User");
 
-        when(service.register(any(User.class))).thenReturn(mockUser);
+        when(service.registerWithOtp(any(), any())).thenReturn(mockUser);
 
         mockMvc.perform(post("/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)

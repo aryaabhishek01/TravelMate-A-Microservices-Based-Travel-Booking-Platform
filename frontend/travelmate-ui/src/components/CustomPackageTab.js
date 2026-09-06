@@ -1,7 +1,6 @@
 import { useState } from "react";
 import API from "../services/api";
 import ItineraryView from "./ItineraryView";
-import { Form } from "react-bootstrap";
 import { createOrder, verifyPayment } from "../services/paymentService";
 
 const INDIAN_STATES = [
@@ -28,8 +27,18 @@ const INTERNATIONAL = [
 
 // ── Fixed pricing — user cannot change these ──
 const FIXED_PRICE = {
-  NATIONAL:      15000,   
-  INTERNATIONAL: 70000,  
+  NATIONAL:      15000,
+  INTERNATIONAL: 200000,
+};
+
+const MIN_DAYS = 3;
+const MAX_DAYS = 10;
+
+/* ── compute tomorrow's date ── */
+const getTomorrow = () => {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split("T")[0];
 };
 
 export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
@@ -41,51 +50,80 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
     names:       [""],
     fullPayment: false,
     paymentMethod: "ONLINE",
-    startDate:   new Date().toISOString().split("T")[0],
+    startDate:   getTomorrow(),
   });
   const [preview,  setPreview]  = useState(null);
+  const [previewStale, setPreviewStale] = useState(false);
   const [loading,  setLoading]  = useState(false);
   const [booking,  setBooking]  = useState(false);
   const [error,    setError]    = useState("");
-  const [search,   setSearch]   = useState("");
   const [dupWarn,  setDupWarn]  = useState(false);
 
   const destinations = form.destType === "NATIONAL" ? INDIAN_STATES : INTERNATIONAL;
-  const filtered     = destinations.filter(d => d.toLowerCase().includes(search.toLowerCase()));
 
   // Fixed price per person based on destination type
   const pricePerPerson = FIXED_PRICE[form.destType];
 
+  /* ── Reset preview whenever key inputs change ── */
+  const updateFormField = (field, value) => {
+    setForm(f => ({ ...f, [field]: value }));
+    if (["destination", "days", "destType", "people"].includes(field)) {
+      if (preview) setPreviewStale(true);
+    }
+  };
+
   const updatePeople = n => {
-    const count = Math.max(1, Math.min(15, n));
+    // Max only 10 members can book at one time
+    const count = Math.max(1, Math.min(10, n));
     setForm(f => ({ ...f, people: count, names: Array.from({ length: count }, (_, i) => f.names[i] || "") }));
+    if (preview) setPreviewStale(true);
+  };
+
+  const handleDaysChange = (val) => {
+    const num = Number(val);
+    const clamped = Math.max(MIN_DAYS, Math.min(MAX_DAYS, num));
+    updateFormField("days", clamped);
   };
 
   const generatePreview = async () => {
-    if (!form.destination) { setError("Please select a destination."); return; }
+    if (!form.destination) { setError("Please choose a destination from the dropdown."); return; }
+    const daysNum = Number(form.days);
+    if (daysNum < MIN_DAYS || daysNum > MAX_DAYS) {
+      setError(`Trip duration must be between ${MIN_DAYS} and ${MAX_DAYS} days.`);
+      return;
+    }
     setError(""); setLoading(true);
     try {
       const r = await API.post("/trips/custom", {
         destination:     form.destination,
-        days:            Number(form.days),
+        days:            daysNum,
         people:          Number(form.people),
-        budget:          pricePerPerson,          // fixed price per person sent to backend
+        budget:          pricePerPerson,
         destinationType: form.destType,
         userEmail:       email,
       });
-      // Override price from backend with our fixed calculation
       const totalPrice = pricePerPerson * Number(form.people);
       setPreview({ ...r.data, price: totalPrice });
+      setPreviewStale(false);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to generate preview.");
     } finally { setLoading(false); }
   };
 
   const bookCustom = async () => {
+    if (!form.destination) { setError("Please choose a destination from the dropdown."); return; }
     if (form.names.some(n => !n.trim())) { setError("Fill all traveller names."); return; }
+    // Validate alpha-only
+    const invalid = form.names.find(n => !/^[a-zA-Z ]+$/.test(n.trim()));
+    if (invalid) { setError("Traveller names must contain only alphabets and spaces."); return; }
     const lower   = form.names.map(n => n.trim().toLowerCase());
     const hasDups = lower.some((n, i) => lower.indexOf(n) !== i);
     if (hasDups) { setDupWarn(true); return; }
+    const daysNum = Number(form.days);
+    if (daysNum < MIN_DAYS || daysNum > MAX_DAYS) {
+      setError(`Trip duration must be between ${MIN_DAYS} and ${MAX_DAYS} days.`);
+      return;
+    }
     await proceedBooking();
   };
 
@@ -144,7 +182,7 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
       const pkgRes = await API.post("/trips/custom-package", {
         name:            `${form.destination} – ${form.days}d Custom`,
         duration:        Number(form.days),
-        price:           pricePerPerson,           // per-person price
+        price:           pricePerPerson,
         type:            "CUSTOM",
         ownerEmail:      email,
         destinationType: form.destType,
@@ -230,7 +268,10 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
             <button
               key={t}
               className={`dest-type-btn ${form.destType === t ? "active" : ""}`}
-              onClick={() => setForm(f => ({ ...f, destType: t, destination: "" }))}>
+              onClick={() => {
+                setForm(f => ({ ...f, destType: t, destination: "" }));
+                if (preview) setPreviewStale(true);
+              }}>
               {t === "NATIONAL" ? "🇮🇳 National" : "🌍 International"}
             </button>
           ))}
@@ -248,35 +289,39 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
 
       {/* Destination */}
       <div className="form-group">
-        <label className="form-label">Destination</label>
-        <input
+        <label className="form-label">Destination <span style={{ color: "#ef4444" }}>*</span></label>
+        <select
           className="form-input"
-          placeholder="Search destination…"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          style={{ marginBottom: 8 }}
-        />
-        <Form.Select
-          className="form-input"
-          data-bs-theme="dark"
           value={form.destination}
-          onChange={e => setForm(f => ({ ...f, destination: e.target.value }))}
-          style={{ background: 'var(--surface2)', color: 'var(--text)' }}
+          onChange={e => updateFormField("destination", e.target.value)}
+          style={{ background: 'var(--surface2)', color: form.destination ? 'var(--text)' : '#64748b', cursor: 'pointer' }}
         >
-          <option value="" style={{ background: 'var(--surface)', color: 'var(--text)' }}>— Select —</option>
-          {filtered.map(d => <option key={d} value={d} style={{ background: 'var(--surface)', color: 'var(--text)' }}>{d}</option>)}
-        </Form.Select>
+          <option value="" disabled style={{ background: 'var(--surface)', color: '#64748b' }}>
+            — Select {form.destType === "NATIONAL" ? "a state / union territory" : "a country"} —
+          </option>
+          {destinations.map(d => (
+            <option key={d} value={d} style={{ background: 'var(--surface)', color: 'var(--text)' }}>{d}</option>
+          ))}
+        </select>
+        {!form.destination && (
+          <small style={{ color: "#ef4444", fontSize: "0.75rem", marginTop: 4, display: "block" }}>
+            Destination cannot be empty
+          </small>
+        )}
       </div>
 
       {/* Duration */}
       <div className="form-group">
-        <label className="form-label">Duration (days)</label>
+        <label className="form-label">Duration (days) — Min {MIN_DAYS}, Max {MAX_DAYS}</label>
         <input
           className="form-input"
-          type="number" min="1" max="30"
+          type="number" min={MIN_DAYS} max={MAX_DAYS}
           value={form.days}
-          onChange={e => setForm(f => ({ ...f, days: e.target.value }))}
+          onChange={e => handleDaysChange(e.target.value)}
         />
+        <small style={{ color: "#64748b", fontSize: "0.75rem", marginTop: 4, display: "block" }}>
+          Minimum 3 days · Maximum 10 days
+        </small>
       </div>
 
       {/* People */}
@@ -292,6 +337,9 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
       {/* Traveller Names */}
       <div className="form-group">
         <label className="form-label">Traveller Names</label>
+        <small style={{ color: "#64748b", fontSize: "0.75rem", marginBottom: 8, display: "block" }}>
+          Alphabets and spaces only
+        </small>
         <div className="names-grid">
           {form.names.map((n, i) => (
             <input
@@ -300,8 +348,11 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
               placeholder={`Traveller ${i + 1} full name`}
               value={n}
               onChange={e => {
-                const names = [...form.names]; names[i] = e.target.value;
-                setForm(f => ({ ...f, names }));
+                const val = e.target.value;
+                if (/^[a-zA-Z ]*$/.test(val)) {
+                  const names = [...form.names]; names[i] = val;
+                  setForm(f => ({ ...f, names }));
+                }
               }}
             />
           ))}
@@ -315,10 +366,24 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
           className="form-input"
           type="date"
           value={form.startDate}
-          min={new Date().toISOString().split("T")[0]}
+          min={getTomorrow()}
           onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))}
         />
+        <small style={{ color: "#64748b", fontSize: "0.75rem", marginTop: 4, display: "block" }}>
+          Trips can only start from tomorrow onwards
+        </small>
       </div>
+
+      {/* Stale preview warning */}
+      {previewStale && preview && (
+        <div style={{
+          background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.35)",
+          borderRadius: 8, padding: "10px 14px", marginBottom: 12,
+          color: "#fbbf24", fontSize: "0.85rem",
+        }}>
+          ⚠️ Your form has changed — regenerate the preview to see updated itinerary.
+        </div>
+      )}
 
       <button
         className="btn-ghost"
@@ -330,7 +395,7 @@ export default function CustomPackageTab({ email, onToast, onSwitchToTrips }) {
       </button>
 
       {/* Preview */}
-      {preview && (
+      {preview && !previewStale && (
         <div className="preview-box">
           <div className="preview-dest">📍 {preview.destination}</div>
           <div className="preview-meta">

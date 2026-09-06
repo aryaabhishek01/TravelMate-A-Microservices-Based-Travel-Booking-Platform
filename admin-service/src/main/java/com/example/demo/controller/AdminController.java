@@ -65,6 +65,13 @@ public class AdminController {
         return service.cancelBooking(id);
     }
 
+    // ── Refund management ──────────────────────────────────────
+    @PostMapping("/approve-refund/{id}")
+    public Object approveRefund(@PathVariable Long id) {
+        log.info("[AdminController] Admin approve refund for booking id: {}", id);
+        return service.approveRefund(id);
+    }
+
     // ── Data views ─────────────────────────────────────────────
     @GetMapping("/users")
     public Object getUsers() {

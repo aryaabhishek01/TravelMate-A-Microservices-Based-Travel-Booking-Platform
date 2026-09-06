@@ -45,6 +45,10 @@ public class AdminService {
         return bookingClient.cancelBooking(id);
     }
 
+    public Object approveRefund(Long id) {
+        return bookingClient.approveRefund(id);
+    }
+
     // ── Users / Bookings data ─────────────────────────────────
     public Object getAllUsers() {
         return authClient.getAllUsers();

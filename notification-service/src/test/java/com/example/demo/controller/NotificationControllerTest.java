@@ -38,7 +38,7 @@ class NotificationControllerTest {
         // Failure path: service.sendEmail throws an exception
         // We use doThrow because sendEmail is a 'void' return type
         doThrow(new RuntimeException("SMTP Server Down"))
-                .when(service).sendEmail(anyString(), anyString(), anyString());
+                .when(service).sendNotificationEmail(anyString(), anyString(), anyString());
 
         mockMvc.perform(post("/notify/send")
                 .param("email", "test@gmail.com")

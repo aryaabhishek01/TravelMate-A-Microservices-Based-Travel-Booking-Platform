@@ -121,15 +121,13 @@ public class BookingService {
         sendNotification(
                 saved.getUserEmail(),
                 "✈ Booking Confirmed – " + saved.getDestination(),
-                "Dear Traveller,\n\n" +
                 "Your trip to " + saved.getDestination() + " is confirmed!\n\n" +
                 "👥 Travellers: " + String.join(", ", saved.getTravellerNames()) + "\n" +
                 "📅 Start: " + saved.getStartDate() + "\n" +
                 "🏁 Return: " + saved.getEndDate() + "\n" +
                 "💰 Total: ₹" + saved.getTotalAmount() + "\n" +
                 "✅ Paid: ₹" + paid + "\n\n" +
-                "📋 Your Itinerary:\n" + itineraryText + "\n\n" +
-                "Have a wonderful trip!\n– TravelMate Team"
+                "📋 Your Itinerary:\n" + itineraryText
         );
 
         return saved;
@@ -221,18 +219,19 @@ public class BookingService {
 
         if (!Boolean.TRUE.equals(booking.getFullPaid())) {
             booking.setBookingStatus("CANCELLED");
+            booking.setRefundStatus("INITIATED");
             repo.save(booking);
             sendNotification(booking.getUserEmail(),
                     "Booking Cancelled",
                     "Your booking for " + booking.getDestination() +
                     " was cancelled. No refund (only 30% advance paid).");
-            return "Cancelled. No refund (30% only)";
+            return "Cancelled. No refund (30% advance paid)";
         }
 
         double refund = Math.round(booking.getTotalAmount() * 0.7 * 100.0) / 100.0;
         booking.setBookingStatus("CANCELLED");
+        booking.setRefundStatus("INITIATED"); // frontend shows '💰 Refund Initiated'
         repo.save(booking);
-        // Logger: info on cancellation with refund
         log.info("[BookingService] Booking id: {} cancelled with refund: {}", bookingId, refund);
 
         sendNotification(
@@ -240,10 +239,37 @@ public class BookingService {
                 "✅ Booking Cancelled – Refund Initiated",
                 "Your trip to " + booking.getDestination() + " has been cancelled.\n" +
                 "💰 Refund Amount: ₹" + refund + " (70% of ₹" + booking.getTotalAmount() + ")\n" +
-                "The refund will be processed in 5-7 business days."
+                "Your refund request is pending admin approval."
         );
 
         return "Cancelled. Refund: ₹" + refund;
+    }
+
+    // ================================
+    // ✅ APPROVE REFUND (Admin action)
+    // ================================
+    public Booking approveRefund(Long bookingId) {
+        Booking booking = repo.findById(bookingId).orElseThrow(
+                () -> new RuntimeException("Booking not found: " + bookingId));
+
+        if (!"INITIATED".equals(booking.getRefundStatus())) {
+            throw new RuntimeException("Refund not in INITIATED state for booking: " + bookingId);
+        }
+
+        booking.setRefundStatus("APPROVED"); // frontend shows '✅ Refund Successful'
+        Booking saved = repo.save(booking);
+        log.info("[BookingService] Refund APPROVED by admin for booking id: {}", bookingId);
+
+        double refund = Math.round(booking.getTotalAmount() * 0.7 * 100.0) / 100.0;
+        sendNotification(
+                saved.getUserEmail(),
+                "✅ Refund Approved – " + saved.getDestination(),
+                "Great news! Your refund for the trip to " + saved.getDestination() + " has been approved.\n" +
+                "💰 Refund Amount: ₹" + refund + "\n" +
+                "The amount will be credited to your original payment method within 5–7 business days."
+        );
+
+        return saved;
     }
 
     // ================================
@@ -257,6 +283,12 @@ public class BookingService {
         LocalDate currentEnd = LocalDate.parse(booking.getEndDate());
         LocalDate newEnd     = currentEnd.plusDays(extraDays);
 
+        int newTotalDays = booking.getDays() + extraDays;
+        if (newTotalDays > 10) {
+            log.warn("[BookingService] Extend blocked — would exceed 10-day max. current: {} extra: {}", booking.getDays(), extraDays);
+            throw new RuntimeException("Maximum trip duration is 10 days. Current: " + booking.getDays() + " days, requested extra: " + extraDays + " days.");
+        }
+
         try {
             String bookUrl = TRIP_URL + "/slot/book/" + booking.getPackageId()
                     + "?startDate=" + newEnd.toString();
@@ -265,7 +297,6 @@ public class BookingService {
             throw new RuntimeException("No slots available for the extension period: " + e.getMessage());
         }
 
-        int newTotalDays = booking.getDays() + extraDays;
         booking.setDays(newTotalDays);
         booking.setEndDate(newEnd.toString());
         booking.setTotalAmount(booking.getTotalAmount() + extraCost);
@@ -278,12 +309,11 @@ public class BookingService {
         sendNotification(
                 saved.getUserEmail(),
                 "🔁 Trip Extended – " + saved.getDestination(),
-                "Great news! Your trip to " + saved.getDestination() + " has been extended.\n\n" +
+                "Your trip to " + saved.getDestination() + " has been extended.\n\n" +
                 "📅 New End Date: " + newEnd + "\n" +
                 "Total Days: " + newTotalDays + "\n" +
                 "Extra Cost: ₹" + extraCost + "\n\n" +
-                "📋 Updated Itinerary:\n" + itineraryText + "\n\n" +
-                "– TravelMate Team"
+                "📋 Updated Itinerary:\n" + itineraryText
         );
 
         return saved;
@@ -398,10 +428,12 @@ public class BookingService {
     // 📦 GET DATA
     // ================================
     public List<Booking> getBookingsByUser(String email) {
+        updateTripStatus();
         return repo.findByUserEmail(email);
     }
 
     public List<Booking> getAllBookings() {
+        updateTripStatus();
         return repo.findAll();
     }
 }

@@ -24,13 +24,14 @@ describe("AdminDashboard Component", () => {
     expect(screen.getByText("ADMIN")).toBeInTheDocument();
   });
 
-  test("renders sidebar navigation tabs", async () => {
+  test("renders sidebar navigation tabs including Refunds", async () => {
     render(<AdminDashboard />);
     await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
     expect(screen.getAllByText("Overview")[0]).toBeInTheDocument();
     expect(screen.getAllByText("Packages")[0]).toBeInTheDocument();
     expect(screen.getAllByText("Users")[0]).toBeInTheDocument();
     expect(screen.getAllByText("Bookings")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Refunds")[0]).toBeInTheDocument();
   });
 
   test("shows overview stats after loading", async () => {
@@ -58,7 +59,6 @@ describe("AdminDashboard Component", () => {
     });
 
     render(<AdminDashboard />);
-    // Switch to Packages tab
     await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
     fireEvent.click(screen.getAllByText("Packages")[0]);
     await waitFor(() => expect(screen.getAllByText("Goa Bliss")[0]).toBeInTheDocument());
@@ -84,8 +84,7 @@ describe("AdminDashboard Component", () => {
     fireEvent.click(screen.getAllByText("Bookings")[0]);
     await waitFor(() => expect(screen.getByText("Paris")).toBeInTheDocument());
     fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
-    
-    // Custom modal is shown. Let's find "Yes, Cancel" button and click it
+
     await waitFor(() => expect(screen.getByText("Cancel Booking?")).toBeInTheDocument());
     fireEvent.click(screen.getByRole("button", { name: /Yes, Cancel/i }));
 
@@ -105,10 +104,9 @@ describe("AdminDashboard Component", () => {
     await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
     fireEvent.click(screen.getAllByText("Packages")[0]);
     await waitFor(() => expect(screen.getByText("Tokyo Trip")).toBeInTheDocument());
-    
+
     fireEvent.click(screen.getByRole("button", { name: /Delete/ }));
-    
-    // Custom modal is shown. Let's find "Yes, Delete" button and click it
+
     await waitFor(() => expect(screen.getByText("Delete Package?")).toBeInTheDocument());
     fireEvent.click(screen.getByRole("button", { name: /Yes, Delete/i }));
 
@@ -120,13 +118,13 @@ describe("AdminDashboard Component", () => {
     render(<AdminDashboard />);
     await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
     fireEvent.click(screen.getAllByText("Notify")[0]);
-    
+
     fireEvent.change(screen.getByPlaceholderText("user@example.com"), { target: { value: "test@test.com" } });
     fireEvent.change(screen.getByPlaceholderText("Booking Confirmed"), { target: { value: "Hello" } });
     fireEvent.change(screen.getByPlaceholderText("Your message here…"), { target: { value: "Welcome" } });
-    
+
     fireEvent.click(screen.getByRole("button", { name: /Send Notification/ }));
-    
+
     await waitFor(() => expect(API.post).toHaveBeenCalledWith(expect.stringContaining("/notify/send")));
     expect(await screen.findByText("Notification sent successfully!")).toBeInTheDocument();
   });
@@ -135,13 +133,13 @@ describe("AdminDashboard Component", () => {
     API.post.mockResolvedValueOnce({});
     render(<AdminDashboard />);
     await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
-    
+
     fireEvent.click(screen.getByText("Add Package"));
     expect(screen.getByText("Add New Package")).toBeInTheDocument();
-    
+
     fireEvent.change(screen.getByPlaceholderText("e.g. Goa Premium"), { target: { value: "New Bali" } });
     fireEvent.click(screen.getByRole("button", { name: /Add Package →/ }));
-    
+
     await waitFor(() => expect(API.post).toHaveBeenCalledWith("/admin/add-package", expect.objectContaining({ name: "New Bali" })));
   });
 
@@ -159,11 +157,72 @@ describe("AdminDashboard Component", () => {
     render(<AdminDashboard />);
     await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
     fireEvent.click(screen.getAllByText("Users")[0]);
-    
+
     await waitFor(() => expect(screen.getByText("Client")).toBeInTheDocument());
     fireEvent.click(screen.getByRole("button", { name: /View Bookings/ }));
-    
+
     await waitFor(() => expect(screen.getByText("Bookings for")).toBeInTheDocument());
     await waitFor(() => expect(screen.getByText("London")).toBeInTheDocument());
+  });
+
+  test("renders Refunds tab with pending refund requests", async () => {
+    API.get.mockImplementation((url) => {
+      if (url === "/admin/bookings") {
+        return Promise.resolve({
+          data: [{
+            id: 77, destination: "Bali", bookingStatus: "CANCELLED",
+            refundStatus: "INITIATED", paymentStatus: "FULL",
+            totalAmount: 70000, paidAmount: 70000, userEmail: "user@test.com"
+          }]
+        });
+      }
+      return Promise.resolve({ data: [] });
+    });
+
+    render(<AdminDashboard />);
+    await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
+    fireEvent.click(screen.getAllByText("Refunds")[0]);
+
+    await waitFor(() => expect(screen.getByText("Refund Requests")).toBeInTheDocument());
+    expect(screen.getByText("Bali")).toBeInTheDocument();
+    expect(screen.getByText("1 pending")).toBeInTheDocument();
+  });
+
+  test("approves a refund and removes it from list", async () => {
+    API.post.mockResolvedValueOnce({});
+    API.get.mockImplementation((url) => {
+      if (url === "/admin/bookings") {
+        return Promise.resolve({
+          data: [{
+            id: 88, destination: "Tokyo", bookingStatus: "CANCELLED",
+            refundStatus: "INITIATED", paymentStatus: "FULL",
+            totalAmount: 50000, paidAmount: 50000, userEmail: "user@test.com"
+          }]
+        });
+      }
+      return Promise.resolve({ data: [] });
+    });
+
+    render(<AdminDashboard />);
+    await waitFor(() => expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument());
+    fireEvent.click(screen.getAllByText("Refunds")[0]);
+
+    await waitFor(() => expect(screen.getByText("Tokyo")).toBeInTheDocument());
+
+    // Click Approve Refund — now opens a confirmation modal first
+    fireEvent.click(screen.getByRole("button", { name: /Approve Refund/i }));
+
+    // Confirm modal should appear
+    await waitFor(() => expect(screen.getByText("Approve Refund?")).toBeInTheDocument());
+    expect(screen.getByText(/Are you sure you want to approve this refund/i)).toBeInTheDocument();
+
+    // Click Yes, Approve Refund
+    fireEvent.click(screen.getByRole("button", { name: /Yes, Approve Refund/i }));
+
+    await waitFor(() => expect(API.post).toHaveBeenCalledWith("/admin/approve-refund/88"));
+    // After approval, the row should disappear (refundStatus changes to APPROVED, filtered out)
+    await waitFor(() => expect(screen.queryByText("Tokyo")).not.toBeInTheDocument());
+    // Empty state message
+    expect(screen.getByText(/No pending refund requests/i)).toBeInTheDocument();
   });
 });

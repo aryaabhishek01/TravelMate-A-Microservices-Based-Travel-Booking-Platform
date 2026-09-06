@@ -48,6 +48,7 @@ class TripServiceTest {
         dto.setName("Paris Trip");
         dto.setDuration(5);
         dto.setDestinationType("INTERNATIONAL");
+        dto.setPrice(100.0);
 
         when(repo.save(any(Package.class))).thenAnswer(i -> i.getArguments()[0]);
 
@@ -65,6 +66,7 @@ class TripServiceTest {
         dto.setName("Default Trip");
         dto.setDuration(3);
         dto.setDestinationType(null);
+        dto.setPrice(100.0);
 
         when(repo.save(any(Package.class))).thenAnswer(i -> i.getArguments()[0]);
 
@@ -229,7 +231,7 @@ class TripServiceTest {
     @SuppressWarnings("unchecked")
     void testGetPackageDetails() {
         Package pkg = new Package();
-        pkg.setId(1L); pkg.setName("Goa"); pkg.setDuration(3);
+        pkg.setId(1L); pkg.setName("Goa"); pkg.setDuration(3); pkg.setType("NATIONAL");
 
         when(repo.findById(1L)).thenReturn(Optional.of(pkg));
         when(itineraryService.generateItineraryMaps(3)).thenReturn(List.of(Map.of("day", 1)));
@@ -452,7 +454,7 @@ class TripServiceTest {
         // Invalid date string triggers catch block in resolveMonth
         tripService.bookSlot(pkgId, "not-a-date");
 
-        verify(slotRepo).findByPackageIdAndYearMonth(pkgId, currentMonth);
+        verify(slotRepo, times(2)).findByPackageIdAndYearMonth(pkgId, currentMonth);
     }
 
     // ================================

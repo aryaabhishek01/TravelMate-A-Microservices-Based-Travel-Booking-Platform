@@ -352,6 +352,59 @@ class BookingServiceTest {
     // =========================================================
 
     @Test
+    void testCancelBooking_FullPaid_SetsRefundStatusInitiated() {
+        Booking b = booking(101L, true, 1000, "user@test.com", "Goa", "2026-06-01", "2026-06-05");
+        b.setPackageId(55L);
+        b.setTravelStatus("NOT_STARTED");
+        when(repo.findById(101L)).thenReturn(Optional.of(b));
+
+        String result = service.cancelBooking(101L);
+
+        assertEquals("CANCELLED", b.getBookingStatus());
+        assertEquals("INITIATED", b.getRefundStatus());
+        verify(repo).save(b);
+    }
+
+    // =========================================================
+    // APPROVE REFUND
+    // =========================================================
+
+    @Test
+    void testApproveRefund_Success() {
+        Booking b = booking(200L, true, 10000, "refund@test.com", "Kerala", "2026-07-01", "2026-07-05");
+        b.setBookingStatus("CANCELLED");
+        b.setRefundStatus("INITIATED");
+        when(repo.findById(200L)).thenReturn(Optional.of(b));
+        when(repo.save(any())).thenAnswer(i -> i.getArguments()[0]);
+
+        Booking result = service.approveRefund(200L);
+
+        assertEquals("APPROVED", result.getRefundStatus());
+        verify(repo).save(b);
+        verify(plainRestTemplate, atLeastOnce()).postForObject(any(URI.class), isNull(), eq(String.class));
+    }
+
+    @Test
+    void testApproveRefund_NotFound_ThrowsException() {
+        when(repo.findById(999L)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> service.approveRefund(999L));
+    }
+
+    // =========================================================
+    // EXTEND TRIP
+    // =========================================================
+
+    @Test
+    void testExtendTrip_ExceedsTenDays_ThrowsException() {
+        Booking b = booking(1L, false, 5000, "test@test.com", "Goa", "2026-05-06", "2026-05-13");
+        b.setDays(8);
+        when(repo.findById(1L)).thenReturn(Optional.of(b));
+
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> service.extendTrip(1L, 3, 1500.0));
+        assertTrue(ex.getMessage().contains("Maximum trip duration is 10 days"));
+    }
+
+    @Test
     void testExtendTrip_Success() {
         Booking b = booking(1L, false, 5000, "test@test.com", "Goa", "2026-05-06", "2026-05-10");
         b.setDays(5);

@@ -32,6 +32,9 @@ public class TripService {
     // ✅ ADD PUBLIC PACKAGE (admin)
     // ─────────────────────────────────────────────────────────
     public Package addPackage(TripRequestDTO dto) {
+        if (dto.getPrice() <= 1) {
+            throw new RuntimeException("Price must be greater than 1");
+        }
         Package pkg = new Package();
         pkg.setName(dto.getName());
         pkg.setDuration(dto.getDuration());
@@ -68,7 +71,12 @@ public class TripService {
         Package pkg = repo.findById(id).orElseThrow(() -> new RuntimeException("Package not found"));
         if (dto.getName()            != null) pkg.setName(dto.getName());
         if (dto.getDuration()        > 0)     pkg.setDuration(dto.getDuration());
-        if (dto.getPrice()           > 0)     pkg.setPrice(dto.getPrice());
+        if (dto.getPrice()           > 0) {
+            if (dto.getPrice() <= 1) {
+                throw new RuntimeException("Price must be greater than 1");
+            }
+            pkg.setPrice(dto.getPrice());
+        }
         if (dto.getType()            != null) pkg.setType(dto.getType());
         if (dto.getDestinationType() != null) pkg.setDestinationType(dto.getDestinationType());
         return repo.save(pkg);

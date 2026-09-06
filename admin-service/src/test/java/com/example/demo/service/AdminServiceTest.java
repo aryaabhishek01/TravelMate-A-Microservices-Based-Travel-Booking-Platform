@@ -102,6 +102,17 @@ class AdminServiceTest {
         verify(bookingClient).cancelBooking(1L);
     }
 
+    @Test
+    void testApproveRefund() {
+        Object mockBooking = "Approved";
+        when(bookingClient.approveRefund(1L)).thenReturn(mockBooking);
+
+        Object result = adminService.approveRefund(1L);
+
+        assertEquals("Approved", result);
+        verify(bookingClient).approveRefund(1L);
+    }
+
     // ================================
     // ✅ USER & BOOKING DATA
     // ================================

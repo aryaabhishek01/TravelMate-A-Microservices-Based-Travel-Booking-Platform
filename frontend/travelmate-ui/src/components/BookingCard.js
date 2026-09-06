@@ -1,15 +1,33 @@
 import { useState } from "react";
 import API from "../services/api";
 import { createOrder, verifyPayment } from "../services/paymentService";
-import CancellationPolicyModal from "./CancellationPolicyModal";
+
 import CancelConfirmModal from "./CancelConfirmModal";
 import ItineraryView from "./ItineraryView";
 
+/* ─── INDIAN STATES FOR DOMESTIC/NATIONAL DETECTION ─── */
+const INDIAN_STATES = [
+  "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh",
+  "Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka",
+  "Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram",
+  "Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana",
+  "Tripura","Uttar Pradesh","Uttarakhand","West Bengal",
+  "Andaman & Nicobar Islands","Chandigarh","Dadra & Nagar Haveli","Daman & Diu",
+  "Delhi","Jammu & Kashmir","Ladakh","Lakshadweep","Puducherry"
+];
+
+const isDomestic = (dest) => {
+  if (!dest) return true;
+  return INDIAN_STATES.some(s => s.toLowerCase() === dest.toLowerCase());
+};
+
 /* ─── Extension rates ─── */
-const EXTENSION_RATES = { DOMESTIC: 3000, INTERNATIONAL: 10000 };
+const EXTENSION_RATES = { DOMESTIC: 3000, INTERNATIONAL: 30000 };
+const MAX_TRIP_DAYS   = 10;
 
 /* ─── Extension Policy Modal ─── */
-function ExtensionPolicyModal({ onClose, onConfirm }) {
+function ExtensionPolicyModal({ destination, onClose, onConfirm }) {
+  const domestic = isDomestic(destination);
   return (
     <div className="tm-modal-overlay">
       <div className="tm-modal" style={{ maxWidth: 480 }}>
@@ -18,25 +36,28 @@ function ExtensionPolicyModal({ onClose, onConfirm }) {
           <button className="tm-modal-close" onClick={onClose}>✕</button>
         </div>
         <div className="policy-box">
-          <div className="policy-row">
-            <span className="policy-icon">🏔️</span>
-            <div>
-              <div className="policy-title">Domestic Trips — ₹3,000 / day / person</div>
-              <div className="policy-desc">Each extra day for domestic destinations is charged at ₹3,000 per person.</div>
+          {domestic ? (
+            <div className="policy-row">
+              <span className="policy-icon">🏔️</span>
+              <div>
+                <div className="policy-title">Domestic Trips — ₹3,000 / day / person</div>
+                <div className="policy-desc">Each extra day for domestic destinations is charged at ₹3,000 per person.</div>
+              </div>
             </div>
-          </div>
-          <div className="policy-row">
-            <span className="policy-icon">✈️</span>
-            <div>
-              <div className="policy-title">International Trips — ₹10,000 / day / person</div>
-              <div className="policy-desc">Each extra day for international destinations is charged at ₹10,000 per person.</div>
+          ) : (
+            <div className="policy-row">
+              <span className="policy-icon">✈️</span>
+              <div>
+                <div className="policy-title">International Trips — ₹30,000 / day / person</div>
+                <div className="policy-desc">Each extra day for international destinations is charged at ₹30,000 per person.</div>
+              </div>
             </div>
-          </div>
+          )}
           <div className="policy-row">
             <span className="policy-icon">📝</span>
             <div>
               <div className="policy-title">Extension Rules</div>
-              <div className="policy-desc">Available for confirmed & ongoing trips only. An updated itinerary is emailed to you after extension.</div>
+              <div className="policy-desc">Maximum trip duration is 10 days (including extensions). Available for confirmed &amp; ongoing trips only. An updated itinerary is emailed to you after extension.</div>
             </div>
           </div>
         </div>
@@ -51,21 +72,28 @@ function ExtensionPolicyModal({ onClose, onConfirm }) {
 
 /* ─── Extend Trip Modal ─── */
 function ExtendModal({ booking, onClose, onSuccess }) {
-  const [extraDays, setExtraDays] = useState(2);
-  const [tripType,  setTripType]  = useState("DOMESTIC");
+  const [extraDays, setExtraDays] = useState(1);
   const [showPolicy, setShowPolicy] = useState(true);
   const [loading,   setLoading]   = useState(false);
   const [error,     setError]     = useState("");
 
+  const currentDays   = booking.days || 0;
+  const maxExtra      = Math.max(0, MAX_TRIP_DAYS - currentDays);
+  const atLimit       = maxExtra === 0;
+
+  const domestic = isDomestic(booking.destination);
+  const tripType = domestic ? "DOMESTIC" : "INTERNATIONAL";
   const rate      = EXTENSION_RATES[tripType];
-  const extraCost = Number(extraDays) * (booking.people || 1) * rate;
+  const safeExtra = Math.min(Number(extraDays), maxExtra);
+  const extraCost = safeExtra * (booking.people || 1) * rate;
 
   const confirm = async () => {
+    if (safeExtra < 1) { setError(`Maximum trip limit of ${MAX_TRIP_DAYS} days reached.`); return; }
     setLoading(true); setError("");
     try {
       await API.post("/booking/extend", {
         bookingId: booking.id,
-        extraDays: Number(extraDays),
+        extraDays: safeExtra,
         extraCost: Number(extraCost),
       });
       onSuccess("Trip extended successfully! Check your email for the updated itinerary.");
@@ -75,7 +103,7 @@ function ExtendModal({ booking, onClose, onSuccess }) {
   };
 
   if (showPolicy) {
-    return <ExtensionPolicyModal onClose={onClose} onConfirm={() => setShowPolicy(false)} />;
+    return <ExtensionPolicyModal destination={booking.destination} onClose={onClose} onConfirm={() => setShowPolicy(false)} />;
   }
 
   return (
@@ -87,42 +115,60 @@ function ExtendModal({ booking, onClose, onSuccess }) {
         </div>
         <p style={{ color: "#94a3b8", marginBottom: 24, fontSize: "0.9rem" }}>
           Extending: <strong style={{ color: "#eef2ff" }}>{booking.destination}</strong>
+          {" "}<span style={{ fontSize: "0.8rem", color: "#64748b" }}>
+            ({currentDays}d currently · max {MAX_TRIP_DAYS}d total · {maxExtra} day{maxExtra !== 1 ? "s" : ""} remaining)
+          </span>
         </p>
         {error && <div className="alert alert-error mb-16"><span>⚠</span> {error}</div>}
 
-        <div className="tm-modal-section">
-          <label className="form-label">Trip Type</label>
-          <select className="form-input" value={tripType} onChange={e => setTripType(e.target.value)}>
-            <option value="DOMESTIC">🏔️ Domestic — ₹3,000 / day / person</option>
-            <option value="INTERNATIONAL">✈️ International — ₹10,000 / day / person</option>
-          </select>
-        </div>
-
-        <div className="tm-modal-section">
-          <label className="form-label">Extra Days</label>
-          <input className="form-input" type="number" min="1" max="30"
-            value={extraDays} onChange={e => setExtraDays(e.target.value)} />
-        </div>
-
-        <div className="tm-modal-section">
-          <label className="form-label">Total Extension Cost</label>
+        {atLimit ? (
           <div style={{
-            background: "rgba(99,102,241,0.1)",
-            border: "1px solid rgba(99,102,241,0.35)",
-            borderRadius: 8, padding: "12px 16px",
-            color: "#eef2ff", fontSize: "1.05rem", fontWeight: 600
+            background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.35)",
+            borderRadius: 8, padding: "14px 16px", color: "#fca5a5", marginBottom: 16,
           }}>
-            ₹{extraCost.toLocaleString("en-IN")}
-            <span style={{ fontSize: "0.8rem", color: "#94a3b8", fontWeight: 400, marginLeft: 8 }}>
-              ({extraDays}d × {booking.people || 1} person × ₹{rate.toLocaleString("en-IN")})
-            </span>
+            🚫 This trip has reached the maximum duration of {MAX_TRIP_DAYS} days and cannot be extended further.
           </div>
-        </div>
+        ) : (
+          <>
+            <div className="tm-modal-section">
+              <label className="form-label">Trip Type</label>
+              <div style={{
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                borderRadius: 8, padding: "10px 14px",
+                color: "#eef2ff", fontSize: "0.92rem"
+              }}>
+                {domestic ? "🏔️ Domestic — ₹3,000 / day / person" : "✈️ International — ₹30,000 / day / person"}
+              </div>
+            </div>
+
+            <div className="tm-modal-section">
+              <label className="form-label">Extra Days (max {maxExtra})</label>
+              <input className="form-input" type="number" min="1" max={maxExtra}
+                value={extraDays} onChange={e => setExtraDays(Math.min(Number(e.target.value), maxExtra))} />
+            </div>
+
+            <div className="tm-modal-section">
+              <label className="form-label">Total Extension Cost</label>
+              <div style={{
+                background: "rgba(99,102,241,0.1)",
+                border: "1px solid rgba(99,102,241,0.35)",
+                borderRadius: 8, padding: "12px 16px",
+                color: "#eef2ff", fontSize: "1.05rem", fontWeight: 600
+              }}>
+                ₹{extraCost.toLocaleString("en-IN")}
+                <span style={{ fontSize: "0.8rem", color: "#94a3b8", fontWeight: 400, marginLeft: 8 }}>
+                  ({safeExtra}d × {booking.people || 1} person × ₹{rate.toLocaleString("en-IN")})
+                </span>
+              </div>
+            </div>
+          </>
+        )}
 
         <div className="tm-modal-actions">
           <button className="btn-ghost" onClick={onClose}>Cancel</button>
-          <button className="btn-primary" onClick={confirm} disabled={loading}>
-            {loading ? "Extending…" : `Extend +${extraDays} days →`}
+          <button className="btn-primary" onClick={confirm} disabled={loading || atLimit}>
+            {atLimit ? "Max Limit Reached" : loading ? "Extending…" : `Extend +${safeExtra} days →`}
           </button>
         </div>
       </div>
@@ -155,6 +201,11 @@ export default function BookingCard({ booking, onRefresh, onToast }) {
   const isCompleted = booking.travelStatus  === "COMPLETED";
   const isOngoing   = booking.travelStatus  === "ONGOING";
   const isCustom    = booking.isCustom === true;
+
+  /* ── derive refund status ── */
+  const refundStatus    = booking.refundStatus; // "INITIATED" | "APPROVED" | null
+  const showRefundDone  = isCancelled && refundStatus === "APPROVED";
+  const showRefundInit  = isCancelled && !showRefundDone;
 
   /* ── Load itinerary from backend when user expands ── */
   const loadDetails = async () => {
@@ -213,7 +264,8 @@ export default function BookingCard({ booking, onRefresh, onToast }) {
     setActioning("cancel");
     try {
       await API.post(`/booking/cancel/${booking.id}`);
-      onToast("Booking cancelled."); onRefresh();
+      onToast("Booking cancelled. Refund initiated (if applicable).");
+      onRefresh();
     } catch { onToast("Cancellation failed."); }
     finally  { setActioning(""); }
   };
@@ -239,6 +291,9 @@ export default function BookingCard({ booking, onRefresh, onToast }) {
             {!isCancelled && booking.paymentStatus === "PARTIAL" && <span className="badge badge-warning">💳 Partial Pay</span>}
             {!isCancelled && booking.paymentStatus === "FULL"    && <span className="badge badge-success">💳 Paid</span>}
             {!isCancelled && booking.bookingStatus === "CONFIRMED" && !isCompleted && <span className="badge badge-info">🎟 Confirmed</span>}
+            {/* Refund status badges */}
+            {showRefundInit && <span className="badge badge-warning">💰 Refund Initiated</span>}
+            {showRefundDone && <span className="badge badge-success">✅ Refund Successful</span>}
           </div>
         </div>
 
@@ -296,8 +351,8 @@ export default function BookingCard({ booking, onRefresh, onToast }) {
             {itinLoading ? "Loading…" : showDetails ? "Hide Details ▲" : "View Details ▼"}
           </button>
 
-          {/* Pay remaining — if balance outstanding and not cancelled */}
-          {!isCancelled && remaining > 0 && (
+          {/* Pay remaining — only if balance outstanding, not cancelled, NOT completed */}
+          {!isCancelled && !isCompleted && remaining > 0 && (
             <button className="btn-pay" onClick={pay} disabled={actioning === "pay"}>
               {actioning === "pay" ? "…" : `💳 Pay ₹${Number(remaining).toLocaleString("en-IN")}`}
             </button>
@@ -318,7 +373,13 @@ export default function BookingCard({ booking, onRefresh, onToast }) {
           {/* Info chip when no actions available */}
           {(isCancelled || isCompleted) && (
             <span className="booking-no-action-hint">
-              {isCancelled ? "🚫 This booking was cancelled" : "🏁 Trip completed — no further actions"}
+              {isCancelled
+                ? (showRefundDone
+                    ? "✅ Refund processed successfully"
+                    : showRefundInit
+                    ? "💰 Refund initiated — pending approval"
+                    : "🚫 This booking was cancelled")
+                : "🏁 Trip completed — no further actions"}
             </span>
           )}
         </div>

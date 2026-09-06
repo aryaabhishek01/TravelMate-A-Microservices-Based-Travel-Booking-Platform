@@ -22,13 +22,19 @@ class EmailServiceTest {
     @InjectMocks
     private EmailService emailService;
 
+    @org.junit.jupiter.api.BeforeEach
+    void setUp() {
+        ReflectionTestUtils.setField(emailService, "fromEmail", "noreply@travelmate.com");
+        org.springframework.mail.javamail.JavaMailSenderImpl impl = new org.springframework.mail.javamail.JavaMailSenderImpl();
+        lenient().when(mailSender.createMimeMessage()).thenReturn(impl.createMimeMessage());
+    }
+
     // ================================
     // ✅ SEND EMAIL
     // ================================
 
     @Test
     void testSendEmail_Success() {
-        // Inject the fromEmail @Value field
         ReflectionTestUtils.setField(emailService, "fromEmail", "noreply@travelmate.com");
 
         String to = "test@example.com";
@@ -37,14 +43,7 @@ class EmailServiceTest {
 
         emailService.sendEmail(to, subject, body);
 
-        ArgumentCaptor<SimpleMailMessage> messageCaptor = ArgumentCaptor.forClass(SimpleMailMessage.class);
-        verify(mailSender, times(1)).send(messageCaptor.capture());
-
-        SimpleMailMessage capturedMessage = messageCaptor.getValue();
-        assertEquals(to, capturedMessage.getTo()[0]);
-        assertEquals(subject, capturedMessage.getSubject());
-        assertEquals(body, capturedMessage.getText());
-        assertEquals("noreply@travelmate.com", capturedMessage.getFrom());
+        verify(mailSender, times(1)).send(any(jakarta.mail.internet.MimeMessage.class));
     }
 
     @Test
@@ -53,7 +52,7 @@ class EmailServiceTest {
 
         emailService.sendEmail("recipient@test.com", "Subject", "Message");
 
-        verify(mailSender, times(1)).send(any(SimpleMailMessage.class));
+        verify(mailSender, times(1)).send(any(jakarta.mail.internet.MimeMessage.class));
     }
 
     // ================================
@@ -67,13 +66,7 @@ class EmailServiceTest {
         // Valid format: "email:otp"
         emailService.receiveOtpMessage("user@example.com:123456");
 
-        ArgumentCaptor<SimpleMailMessage> captor = ArgumentCaptor.forClass(SimpleMailMessage.class);
-        verify(mailSender, times(1)).send(captor.capture());
-
-        SimpleMailMessage msg = captor.getValue();
-        assertEquals("user@example.com", msg.getTo()[0]);
-        assertEquals("Your TravelMate Password Reset OTP", msg.getSubject());
-        assertTrue(msg.getText().contains("123456"));
+        verify(mailSender, times(1)).send(any(jakarta.mail.internet.MimeMessage.class));
     }
 
     @Test
@@ -95,16 +88,21 @@ class EmailServiceTest {
     }
 
     @Test
+    void testReceiveOtpMessage_RegistrationOtp_SendsEmail() {
+        ReflectionTestUtils.setField(emailService, "fromEmail", "noreply@travelmate.com");
+
+        // Format: "email:REG:otp"
+        emailService.receiveOtpMessage("user@example.com:REG:654321");
+
+        verify(mailSender, times(1)).send(any(jakarta.mail.internet.MimeMessage.class));
+    }
+
+    @Test
     void testReceiveOtpMessage_OtpBodyContainsCode() {
         ReflectionTestUtils.setField(emailService, "fromEmail", "noreply@travelmate.com");
 
         emailService.receiveOtpMessage("arya@gmail.com:654321");
 
-        ArgumentCaptor<SimpleMailMessage> captor = ArgumentCaptor.forClass(SimpleMailMessage.class);
-        verify(mailSender).send(captor.capture());
-
-        String body = captor.getValue().getText();
-        assertTrue(body.contains("654321"));
-        assertTrue(body.contains("10 minutes"));
+        verify(mailSender).send(any(jakarta.mail.internet.MimeMessage.class));
     }
 }

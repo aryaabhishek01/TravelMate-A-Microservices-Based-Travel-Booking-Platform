@@ -14,6 +14,9 @@ public interface BookingClient {
     @PostMapping("/booking/cancel/{id}")
     String cancelBooking(@PathVariable Long id);
 
+    @PostMapping("/booking/approve-refund/{id}")
+    Object approveRefund(@PathVariable Long id);
+
     @GetMapping("/booking/all")
     List<Object> getAllBookings();
 

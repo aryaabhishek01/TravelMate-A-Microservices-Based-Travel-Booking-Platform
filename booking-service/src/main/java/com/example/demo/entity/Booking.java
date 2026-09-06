@@ -41,6 +41,9 @@ public class Booking {
     private String paymentStatus; // PARTIAL / FULL
     private String bookingStatus; // CONFIRMED / CANCELLED
 
+    // Refund lifecycle: null → "INITIATED" (user cancels with full payment) → "APPROVED" (admin confirms)
+    private String refundStatus;
+
     // true = user-created custom trip; false = admin default package booking
     private boolean isCustom = false;
 }

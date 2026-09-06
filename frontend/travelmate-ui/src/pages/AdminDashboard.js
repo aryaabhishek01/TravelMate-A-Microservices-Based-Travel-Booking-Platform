@@ -6,6 +6,7 @@ const TABS = [
   { id: "packages",  label: "Packages",   icon: "📦" },
   { id: "users",     label: "Users",      icon: "👥" },
   { id: "bookings",  label: "Bookings",   icon: "🗂" },
+  { id: "refunds",   label: "Refunds",    icon: "💰" },
   { id: "notify",    label: "Notify",     icon: "📩" },
 ];
 
@@ -14,7 +15,7 @@ function PackageModal({ pkg, onClose, onSuccess }) {
   const isEdit = !!pkg;
   const [form, setForm] = useState({
     name: pkg?.name || "",
-    duration: pkg?.duration || 5,
+    duration: pkg?.duration || 3,
     price: pkg?.price || 10000,
     type: pkg?.type || "DEFAULT",
     destinationType: pkg?.destinationType || "NATIONAL",
@@ -24,6 +25,8 @@ function PackageModal({ pkg, onClose, onSuccess }) {
 
   const submit = async () => {
     if (!form.name.trim()) { setError("Package name is required."); return; }
+    if (Number(form.duration) < 3) { setError("Duration must be at least 3 days."); return; }
+    if (Number(form.price) <= 0) { setError("Price must be greater than 0."); return; }
     setLoading(true); setError("");
     try {
       if (isEdit) {
@@ -62,13 +65,13 @@ function PackageModal({ pkg, onClose, onSuccess }) {
         </div>
         <div className="tm-modal-section form-row-2">
           <div>
-            <label className="form-label">Duration (days)</label>
-            <input className="form-input" type="number" min="1"
+            <label className="form-label">Duration (days) — Min 3</label>
+            <input className="form-input" type="number" min="3"
               value={form.duration} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} />
           </div>
           <div>
             <label className="form-label">Price (₹ / person)</label>
-            <input className="form-input" type="number" min="0"
+            <input className="form-input" type="number" min="1"
               value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} />
           </div>
         </div>
@@ -211,6 +214,10 @@ export default function AdminDashboard() {
   const [searchPackages, setSearchPackages] = useState("");
   const [searchUsers, setSearchUsers] = useState("");
   const [searchBookings, setSearchBookings] = useState("");
+  const [bookingFilter, setBookingFilter] = useState("ALL");
+  const [approvingId, setApprovingId] = useState(null);
+  /* refund rows — all cancelled bookings awaiting admin refund approval */
+  const refundRows = bookings.filter(b => b.bookingStatus === "CANCELLED" && b.refundStatus !== "APPROVED");
 
   useEffect(() => { fetchAll(); }, []);
 
@@ -280,6 +287,31 @@ export default function AdminDashboard() {
       const errMsg = typeof err.response?.data === "string" ? err.response.data : err.response?.data?.message || "Failed to send email.";
       setNotifyMsg("error:" + errMsg);
     } finally { setNotifyLoading(false); }
+  };
+
+  const approveRefund = (bookingId) => {
+    setConfirmModal({
+      title: "Approve Refund?",
+      message: "Are you sure you want to approve this refund? The user will be notified and the refund will be marked as successful. This action cannot be undone.",
+      confirmText: "Yes, Approve Refund",
+      cancelText: "Cancel",
+      onConfirm: async () => {
+        setConfirmModal(null);
+        setApprovingId(bookingId);
+        try {
+          await API.post(`/admin/approve-refund/${bookingId}`);
+          showToast("Refund approved! User will see 'Refund Successful'.");
+          /* Remove from admin refund list — patch local state immediately so row
+             disappears, then sync from backend so user-side also sees APPROVED */
+          setBookings(prev => prev.map(b =>
+            b.id === bookingId ? { ...b, refundStatus: "APPROVED" } : b
+          ));
+          fetchAll();
+        } catch (err) {
+          showToast(err.response?.data?.message || "Failed to approve refund.");
+        } finally { setApprovingId(null); }
+      }
+    });
   };
 
   const showToast = msg => { setToast(msg); setTimeout(() => setToast(""), 4000); };
@@ -484,46 +516,118 @@ export default function AdminDashboard() {
               )}
 
               {/* BOOKINGS */}
-              {activeTab === "bookings" && (
+              {activeTab === "bookings" && (() => {
+                const filteredBookings = bookings
+                  .filter(b => {
+                    if (bookingFilter === "ACTIVE")    return b.bookingStatus !== "CANCELLED" && b.travelStatus !== "COMPLETED" && b.travelStatus !== "ONGOING";
+                    if (bookingFilter === "ONGOING")   return b.travelStatus === "ONGOING";
+                    if (bookingFilter === "CANCELLED") return b.bookingStatus === "CANCELLED";
+                    if (bookingFilter === "COMPLETED") return b.travelStatus === "COMPLETED";
+                    return true;
+                  })
+                  .filter(b => b.destination?.toLowerCase().includes(searchBookings.toLowerCase()) || b.userEmail?.toLowerCase().includes(searchBookings.toLowerCase()));
+                return (
+                  <div>
+                    <div className="admin-page-header">
+                      <h2 className="admin-page-title">All Bookings</h2>
+                      <span className="section-count">{bookings.length} total</span>
+                      <div className="search-bar" style={{ marginBottom: 0, marginLeft: "auto", width: 250 }}>
+                        <span className="search-icon">🔍</span>
+                        <input className="search-input" placeholder="Search bookings..." value={searchBookings} onChange={e => setSearchBookings(e.target.value)} />
+                        {searchBookings && <button className="search-clear" onClick={() => setSearchBookings("")}>✕</button>}
+                      </div>
+                    </div>
+                    {/* Status filter pills */}
+                    <div className="trip-filter-row" style={{ marginBottom: 16 }}>
+                      {[
+                        { val: "ALL",       label: `All (${bookings.length})` },
+                        { val: "ACTIVE",    label: `Active (${bookings.filter(b => b.bookingStatus !== "CANCELLED" && b.travelStatus !== "COMPLETED" && b.travelStatus !== "ONGOING").length})` },
+                        { val: "ONGOING",   label: `Ongoing (${bookings.filter(b => b.travelStatus === "ONGOING").length})` },
+                        { val: "COMPLETED", label: `Completed (${bookings.filter(b => b.travelStatus === "COMPLETED").length})` },
+                        { val: "CANCELLED", label: `Cancelled (${bookings.filter(b => b.bookingStatus === "CANCELLED").length})` },
+                      ].map(f => (
+                        <button
+                          key={f.val}
+                          className={`filter-pill ${bookingFilter === f.val ? "active" : ""}`}
+                          onClick={() => setBookingFilter(f.val)}
+                        >
+                          {f.label}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="admin-table-wrap">
+                      <table>
+                        <thead><tr><th>Destination</th><th>User</th><th>Dates</th><th>Amount</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody>
+                          {filteredBookings.map(b => (
+                            <tr key={b.id}>
+                              <td style={{ fontWeight:500 }}>{b.destination}</td>
+                              <td style={{ color:"var(--muted)", fontSize:"0.82rem" }}>{b.userEmail||"—"}</td>
+                              <td style={{ fontSize:"0.82rem", color:"var(--muted)" }}>{b.startDate} → {b.endDate||"?"}</td>
+                              <td>
+                                <div>₹{Number(b.totalAmount||0).toLocaleString("en-IN")}</div>
+                                {b.paidAmount > 0 && <div style={{ fontSize:"0.76rem", color:"var(--muted)" }}>Paid: ₹{Number(b.paidAmount).toLocaleString("en-IN")}</div>}
+                              </td>
+                              <td>
+                                {b.paymentStatus === "FULL"    ? <span className="badge badge-success">Full</span>
+                                 : b.paymentStatus === "PARTIAL" ? <span className="badge badge-warning">Partial</span>
+                                 : <span className="badge badge-danger">Unpaid</span>}
+                              </td>
+                              <td>{statusBadge(b)}</td>
+                              <td>
+                                {b.bookingStatus !== "CANCELLED" && (
+                                  <button className="btn-cancel-sm" onClick={() => cancelBooking(b.id)}>Cancel</button>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                          {filteredBookings.length === 0 && <tr><td colSpan={7} className="table-empty">{bookings.length === 0 ? "No bookings found" : "No bookings match this filter."}</td></tr>}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* REFUNDS */}
+              {activeTab === "refunds" && (
                 <div>
                   <div className="admin-page-header">
-                    <h2 className="admin-page-title">All Bookings</h2>
-                    <span className="section-count">{bookings.length} total</span>
-                    <div className="search-bar" style={{ marginBottom: 0, marginLeft: "auto", width: 250 }}>
-                      <span className="search-icon">🔍</span>
-                      <input className="search-input" placeholder="Search bookings..." value={searchBookings} onChange={e => setSearchBookings(e.target.value)} />
-                      {searchBookings && <button className="search-clear" onClick={() => setSearchBookings("")}>✕</button>}
-                    </div>
+                    <h2 className="admin-page-title">Refund Requests</h2>
+                    <span className="section-count">{refundRows.length} pending</span>
                   </div>
                   <div className="admin-table-wrap">
                     <table>
-                      <thead><tr><th>Destination</th><th>User</th><th>Dates</th><th>Amount</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead>
+                      <thead>
+                        <tr>
+                          <th>Booking ID</th><th>User</th><th>Destination</th>
+                          <th>Total Paid</th><th>Action</th>
+                        </tr>
+                      </thead>
                       <tbody>
-                        {bookings
-                          .filter(b => b.destination?.toLowerCase().includes(searchBookings.toLowerCase()) || b.userEmail?.toLowerCase().includes(searchBookings.toLowerCase()) || b.bookingStatus?.toLowerCase().includes(searchBookings.toLowerCase()) || b.travelStatus?.toLowerCase().includes(searchBookings.toLowerCase()))
-                          .map(b => (
+                        {refundRows.map(b => (
                           <tr key={b.id}>
-                            <td style={{ fontWeight:500 }}>{b.destination}</td>
-                            <td style={{ color:"var(--muted)", fontSize:"0.82rem" }}>{b.userEmail||"—"}</td>
-                            <td style={{ fontSize:"0.82rem", color:"var(--muted)" }}>{b.startDate} → {b.endDate||"?"}</td>
+                            <td style={{ color: "var(--muted)" }}>#{b.id}</td>
+                            <td style={{ fontSize: "0.85rem", color: "var(--muted)" }}>{b.userEmail || "—"}</td>
+                            <td style={{ fontWeight: 600 }}>{b.destination}</td>
+                            <td>₹{Number(b.paidAmount || 0).toLocaleString("en-IN")}</td>
                             <td>
-                              <div>₹{Number(b.totalAmount||0).toLocaleString("en-IN")}</div>
-                              {b.paidAmount > 0 && <div style={{ fontSize:"0.76rem", color:"var(--muted)" }}>Paid: ₹{Number(b.paidAmount).toLocaleString("en-IN")}</div>}
-                            </td>
-                            <td>
-                              {b.paymentStatus === "FULL"    ? <span className="badge badge-success">Full</span>
-                               : b.paymentStatus === "PARTIAL" ? <span className="badge badge-warning">Partial</span>
-                               : <span className="badge badge-danger">Unpaid</span>}
-                            </td>
-                            <td>{statusBadge(b)}</td>
-                            <td>
-                              {b.bookingStatus !== "CANCELLED" && (
-                                <button className="btn-cancel-sm" onClick={() => cancelBooking(b.id)}>Cancel</button>
-                              )}
+                              <button
+                                className="btn-primary"
+                                style={{ padding: "6px 14px", fontSize: "0.82rem", width: "auto" }}
+                                disabled={approvingId === b.id}
+                                onClick={() => approveRefund(b.id)}
+                              >
+                                {approvingId === b.id ? "Processing…" : "✔ Approve Refund"}
+                              </button>
                             </td>
                           </tr>
                         ))}
-                        {bookings.length === 0 && <tr><td colSpan={7} className="table-empty">No bookings found</td></tr>}
+                        {refundRows.length === 0 && (
+                          <tr><td colSpan={5} className="table-empty">
+                            🎉 No pending refund requests.
+                          </td></tr>
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -537,7 +641,7 @@ export default function AdminDashboard() {
                     <h2 className="admin-page-title">Send Notification</h2>
                   </div>
                   <div className="notify-card">
-                    <p className="notify-desc">Sends via <code>POST /notify/send?email=&subject=&message=</code></p>
+                    <p className="notify-desc">Send an email notification directly to any registered user.</p>
                     {notifyMsg && (
                       <div className={`alert ${notifyMsg.startsWith("success:") ? "alert-success" : "alert-error"} mb-16`}>
                         {notifyMsg.replace(/^(success|error):/, "")}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  Modal, Button, Form, InputGroup,
+  Modal, Button, Form,
   Row, Col, Badge, Alert, Stack,
 } from "react-bootstrap";
 import API from "../services/api";
@@ -136,9 +136,11 @@ function PolicyScreen({ onBack, onConfirm, loading }) {
       <Modal.Body>
         <div style={{ background: "#253352", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, padding: "16px 18px", marginBottom: 8 }}>
           {[
-            { icon: "✅", t: "Full Payment — 70% Refund",  d: "Paid in full and cancel before trip starts → 70% refund." },
-            { icon: "⚠️", t: "Advance (30%) — No Refund",  d: "Paid only 30% advance and cancel → no refund." },
-            { icon: "🚫", t: "Trip Ongoing — No Refund",   d: "No refund once the trip has started." },
+            { icon: "✅", t: "Full Payment — 70% Refund",      d: "If you paid 100% and cancel before the trip starts, you receive a 70% refund of the total amount." },
+            { icon: "⚠️", t: "30% Advance — No Refund",        d: "If you paid only the 30% advance and cancel, no refund is issued." },
+            { icon: "🚫", t: "Trip Ongoing / Completed — No Refund", d: "No refund once the trip has started or is completed." },
+            { icon: "📅", t: "Trip Duration — 3 to 10 Days",  d: "Minimum trip duration is 3 days. Maximum is 10 days. Extensions are not allowed once you reach 10 days." },
+            { icon: "⏰", t: "Start Date — From Tomorrow",     d: "All trips must be scheduled to start from the next day at the earliest." },
           ].map(r => (
             <div className="bm-policy-row" key={r.t}>
               <span className="bm-policy-icon">{r.icon}</span>
@@ -161,10 +163,17 @@ function PolicyScreen({ onBack, onConfirm, loading }) {
 }
 
 /* ─── Main Component ─── */
+/* ── compute tomorrow's date ── */
+const getTomorrow = () => {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split("T")[0];
+};
+
 export default function BookingModal({ pkg, email, onClose, onSuccess }) {
-  const today = new Date().toISOString().split("T")[0];
+  const tomorrow = getTomorrow();
   const [form, setForm] = useState({
-    people: 1, startDate: today,
+    people: 1, startDate: tomorrow,
     fullPayment: false, names: [""],
     paymentMethod: "ONLINE",
   });
@@ -348,14 +357,16 @@ export default function BookingModal({ pkg, email, onClose, onSuccess }) {
               <Form.Group className="mb-3">
                 <Form.Label>Start Date</Form.Label>
                 <Form.Control
-                  type="date" value={form.startDate} min={today}
+                  type="date" value={form.startDate} min={tomorrow}
                   onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))}
                 />
+                <Form.Text>Trips can only start from tomorrow onwards.</Form.Text>
               </Form.Group>
 
               {/* Traveller Names */}
               <Form.Group className="mb-3">
                 <Form.Label>Traveller Names</Form.Label>
+                <Form.Text style={{ display: "block", marginBottom: 6 }}>Alphabets and spaces only</Form.Text>
                 <Row className="g-2">
                   {form.names.map((n, i) => (
                     <Col xs={12} sm={form.people > 1 ? 6 : 12} key={i}>
@@ -363,8 +374,11 @@ export default function BookingModal({ pkg, email, onClose, onSuccess }) {
                         placeholder={`Traveller ${i + 1}`}
                         value={n}
                         onChange={e => {
-                          const names = [...form.names]; names[i] = e.target.value;
-                          setForm(f => ({ ...f, names }));
+                          const val = e.target.value;
+                          if (/^[a-zA-Z ]*$/.test(val)) {
+                            const names = [...form.names]; names[i] = val;
+                            setForm(f => ({ ...f, names }));
+                          }
                         }}
                       />
                     </Col>

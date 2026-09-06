@@ -26,17 +26,17 @@ export default function ChatBox({ currentUser }) {
     {
       question: "🚫 Cancellation Policy?",
       keywords: ["cancel", "cancellation", "policy"],
-      answer: "📋 Cancellation Policy:\n• You can cancel any booking before the trip starts.\n• A flat 10% cancellation fee is charged on the total package price.\n• The rest of your paid amount is refunded.\n• If your paid amount is less than the 10% fee, no refund is issued."
+      answer: "📋 Cancellation Policy:\n• Full Payment (100%) cancelled before trip starts → 70% refund of total amount.\n• 30% Advance paid and cancelled → No refund issued.\n• Trip Ongoing or Completed → No refund under any circumstance.\n• All cancellations must be done before the trip start date."
     },
     {
       question: "💸 Cancellation Charges?",
       keywords: ["charge", "charges", "fee", "penalty", "deduct"],
-      answer: "💸 Cancellation Charges:\n• The cancellation fee is 10% of your total package amount.\nExample: If your package is ₹10,000 and you paid ₹3,000 advance, your refund = ₹3,000 − ₹1,000 (10%) = ₹2,000."
+      answer: "💸 Cancellation Charges:\n• If you paid 100%: You receive a 70% refund (30% is retained as cancellation fee).\n• If you paid 30% advance only: No refund — the full advance is forfeited.\n• Example: Package ₹10,000 — paid in full (₹10,000) → Refund = ₹7,000.\n• Example: Package ₹10,000 — paid advance (₹3,000) → Refund = ₹0."
     },
     {
       question: "💳 Refund Policy?",
       keywords: ["refund", "money back", "return"],
-      answer: "💳 Refund Policy:\n• Refunds are processed after deducting the 10% cancellation fee.\n• Refund is based on the amount you have already paid, not the full package cost.\n• Refunds are reflected within 5–7 business days (online payments only)."
+      answer: "💳 Refund Policy:\n• Refund is 70% of total amount ONLY if you paid in full (100%).\n• If only 30% advance was paid, no refund is issued.\n• Once the trip starts or is completed, no refund applies.\n• After cancellation, your booking shows '💰 Refund Initiated' — pending admin review.\n• Once admin approves, your booking shows '✅ Refund Successful'.\n• Refunds are reflected within 5–7 business days (online payments only)."
     },
     {
       question: "💰 Advance Payment?",
@@ -51,27 +51,32 @@ export default function ChatBox({ currentUser }) {
     {
       question: "✈️ Custom Packages?",
       keywords: ["custom", "build", "own trip", "my itinerary", "create"],
-      answer: "✈️ Custom Packages:\n• Go to the 'Custom Trip' tab on your dashboard.\n• Choose National (₹15,000/person) or International (₹70,000/person).\n• Select destination, dates, number of people & traveller names.\n• Our system generates a full day-by-day itinerary automatically!"
+      answer: "✈️ Custom Packages:\n• Go to the 'Custom Trip' tab on your dashboard.\n• Choose National (₹15,000/person) or International (₹2,00,000/person).\n• Select destination, dates (min 3 days, max 10 days), number of people (max 10) & traveller names.\n• Trip must start from tomorrow at the earliest — same-day booking is not allowed.\n• Traveller names must contain only letters and spaces (no numbers).\n• Our system generates a full day-by-day itinerary automatically!\n• If you change destination/days/people after previewing, regenerate the itinerary."
     },
     {
       question: "📅 Default Packages?",
       keywords: ["default", "package", "explore", "official"],
-      answer: "📅 Default Packages:\n• Listed in the Explore tab — these are admin-curated official packages.\n• Each has a fixed number of slots (15 per booking month).\n• Once all slots are taken, the package shows as 'Full'."
+      answer: "📅 Default Packages:\n• Listed in the Explore tab — these are admin-curated official packages.\n• Price shown is per person — total cost scales with each additional passenger.\n• Maximum 10 passengers per booking.\n• Each package has 15 slots per booking month.\n• Once all slots are taken, the package shows as 'Sold Out'.\n• Trips start from tomorrow onwards — same-day booking is not allowed."
     },
     {
       question: "🔁 Extend My Trip?",
       keywords: ["extend", "extra days", "longer", "more days"],
-      answer: "🔁 Extending a Trip:\n• Go to 'My Trips' in your dashboard.\n• Click '+ Extend' on any confirmed or ongoing trip.\n• Review the Extension Policy (domestic/international rates).\n• Select your trip type, enter extra days — cost is auto-calculated.\n• An updated itinerary will be sent to your email."
+      answer: "🔁 Extending a Trip:\n• Go to 'My Trips' in your dashboard.\n• Click '+ Extend' on any confirmed or ongoing trip.\n• ⚠️ Extension is only available if your total trip duration is less than 10 days.\n• Maximum total trip duration is 10 days (original + extension combined).\n• National trips: ₹3,000 per person per extra day.\n• International trips: ₹30,000 per person per extra day.\n• The extension rate matches your trip type automatically — national trips show national rates only, international trips show international rates only.\n• An updated itinerary will be sent to your email after extension."
     },
     {
       question: "💰 Extension Cost?",
       keywords: ["extension cost", "extend cost", "extend price", "extend rate", "extend charge", "extension charge", "extension price"],
-      answer: "💰 Trip Extension Charges:\n• 🏔️ Domestic trips: ₹3,000 per person per day\n• ✈️ International trips: ₹10,000 per person per day\n\nExample — Domestic (Goa, 2 extra days, 2 people):\n2 days × 2 people × ₹3,000 = ₹12,000\n\nExample — International (Dubai, 1 extra day, 1 person):\n1 day × 1 person × ₹10,000 = ₹10,000"
+      answer: "💰 Trip Extension Charges:\n• 🏔️ National (Domestic) trips: ₹3,000 per person per day\n• ✈️ International trips: ₹30,000 per person per day\n• Maximum total trip = 10 days (original + extended)\n• Extension is NOT available if your trip already has 10 days.\n\nExample — National (Goa, 2 extra days, 2 people):\n2 days × 2 people × ₹3,000 = ₹12,000\n\nExample — International (Dubai, 1 extra day, 1 person):\n1 day × 1 person × ₹30,000 = ₹30,000"
     },
     {
       question: "📊 Trip Status?",
       keywords: ["status", "ongoing", "completed", "not started"],
-      answer: "📊 Trip Statuses:\n• 🕐 Not Started: Booking confirmed, trip hasn't begun yet.\n• 🚀 Ongoing: You are currently on the trip.\n• ✅ Completed: Trip is finished.\n• ❌ Cancelled: The booking has been cancelled."
+      answer: "📊 Trip Statuses:\n• 🕐 Not Started: Booking confirmed, trip hasn't begun yet.\n• 🚀 Ongoing: You are currently on the trip.\n• ✅ Completed: Trip is finished — no further actions available.\n• ❌ Cancelled: The booking has been cancelled.\n• 💰 Refund Initiated: Your cancellation is processed. Refund is pending admin approval.\n• ✅ Refund Successful: Admin approved your refund — it will reflect within 5–7 business days."
+    },
+    {
+      question: "📏 Trip Duration Limits?",
+      keywords: ["duration", "days", "minimum", "maximum", "limit", "how many days"],
+      answer: "📏 Trip Duration Rules:\n• Minimum: 3 days for any trip (custom or package).\n• Maximum: 10 days total (including any extensions).\n• If your trip reaches 10 days, the Extend button will be disabled — no further extension allowed.\n• Custom trip duration is entered by you (between 3–10 days)."
     },
     {
       question: "👥 Slot Availability?",
@@ -80,13 +85,18 @@ export default function ChatBox({ currentUser }) {
     },
     {
       question: "🔐 Forgot Password?",
-      keywords: ["forgot", "password", "reset", "otp", "login issue"],
-      answer: "🔐 Forgot Password:\n• Click 'Forgot Password?' on the login page.\n• Enter your registered email — an OTP will be sent instantly.\n• Enter the OTP, then set a new password (minimum 8 characters).\n• You'll be redirected to login automatically."
+      keywords: ["forgot", "password", "reset", "login issue"],
+      answer: "🔐 Forgot Password:\n• Click 'Forgot Password?' on the login page.\n• Enter your registered email — a 6-digit OTP will be sent instantly.\n• Enter the OTP to verify your identity.\n• Set a new password (minimum 8 characters).\n• You'll be redirected to login automatically after reset."
+    },
+    {
+      question: "📝 Create Account?",
+      keywords: ["register", "sign up", "account", "new user", "otp register"],
+      answer: "📝 Creating an Account:\n• Click 'Create Account' on the login page.\n• Enter your full name (letters and spaces only — no numbers allowed), email, and password (min 8 chars).\n• Email must have at least 3 characters before the @ symbol (e.g. abc@example.com).\n• Click 'Get OTP' — a 6-digit code is sent to your email.\n• Enter the OTP to verify and complete registration.\n• OTP can be resent after 30 seconds if you didn't receive it."
     },
     {
       question: "📧 Contact Support?",
       keywords: ["contact", "support", "help", "agent", "human"],
-      answer: "📧 Contact Support:\n• For issues not covered here, please email us at support@travelmate.com.\n• Our team responds within 24 hours on business days.\n• For urgent issues, call our helpline at 1234567890"
+      answer: "📧 Contact Support:\n• For issues not covered here, please email us at support@travelmate.com.\n• Our team responds within 24 hours on business days.\n• For urgent issues, call our helpline at 1800-TRAVEL."
     }
   ];
 

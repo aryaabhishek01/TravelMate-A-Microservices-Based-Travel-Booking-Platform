@@ -36,14 +36,12 @@ describe("BookingModal Component", () => {
 
   test("shows people counter with default value 1", () => {
     render(<BookingModal {...defaultProps} />);
-    // The counter-val shows "1" as default
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 
   test("shows error when traveller name is empty and Book Now clicked", () => {
     render(<BookingModal {...defaultProps} />);
     fireEvent.click(screen.getByRole("button", { name: /Book Now/i }));
-    // Bootstrap Alert renders "⚠ " + message — use regex for partial match
     expect(
       screen.getByText(/Please fill in all traveller names/i)
     ).toBeInTheDocument();
@@ -81,14 +79,34 @@ describe("BookingModal Component", () => {
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 
+  test("start date defaults to tomorrow", () => {
+    render(<BookingModal {...defaultProps} />);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStr = tomorrow.toISOString().split("T")[0];
+    // the date input should have tomorrow as default value
+    const dateInput = screen.getByDisplayValue(tomorrowStr);
+    expect(dateInput).toBeInTheDocument();
+  });
+
+  test("traveller name input only accepts alphabets and spaces", () => {
+    render(<BookingModal {...defaultProps} />);
+    const nameInput = screen.getAllByRole("textbox")[0];
+    fireEvent.change(nameInput, { target: { value: "John123" } });
+    // Filter rejects invalid chars — value stays empty
+    expect(nameInput.value).toBe("");
+    fireEvent.change(nameInput, { target: { value: "John Doe" } });
+    expect(nameInput.value).toBe("John Doe");
+  });
+
   test("shows duplicate names warning", () => {
     render(<BookingModal {...defaultProps} />);
     fireEvent.click(screen.getByRole("button", { name: "+" })); // 2 people
-    
+
     const inputs = screen.getAllByRole("textbox");
     fireEvent.change(inputs[0], { target: { value: "Same Name" } });
     fireEvent.change(inputs[1], { target: { value: "Same Name" } });
-    
+
     fireEvent.click(screen.getByRole("button", { name: /Book Now/i }));
     expect(screen.getByText(/Duplicate Traveller Names/i)).toBeInTheDocument();
   });
@@ -96,14 +114,27 @@ describe("BookingModal Component", () => {
   test("loads itinerary preview", async () => {
     const API = require("../services/api");
     API.default.get.mockResolvedValueOnce({ data: { itinerary: [{ day: 1, plan: "Arrival" }] } });
-    
+
     render(<BookingModal {...defaultProps} />);
     const toggleBtn = screen.getByText(/View Itinerary Preview/i);
     fireEvent.click(toggleBtn);
-    
-    // After click, the button text changes to indicate hiding
+
     const { waitFor } = require("@testing-library/react");
     await waitFor(() => expect(screen.getByText(/Hide Itinerary Preview/i)).toBeInTheDocument());
+  });
+
+  test("proceeds to policy screen and shows correct policy rows", () => {
+    render(<BookingModal {...defaultProps} />);
+    // Fill traveller name
+    const nameInput = screen.getAllByRole("textbox")[0];
+    fireEvent.change(nameInput, { target: { value: "Valid Name" } });
+    fireEvent.click(screen.getByLabelText(/Cash/i));
+    fireEvent.click(screen.getByRole("button", { name: /Book Now/i }));
+    // Policy screen shown — check updated policy text
+    expect(screen.getByText(/Cancellation Policy/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/70% Refund/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/30% Advance/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/3 to 10 Days/i)[0]).toBeInTheDocument();
   });
 
   test("proceeds to policy screen and submits cash booking", async () => {
@@ -111,18 +142,19 @@ describe("BookingModal Component", () => {
     import("../services/api").then(api => {
       api.default.post.mockResolvedValueOnce({ data: { id: 99 } });
     });
-    
+
     render(<BookingModal {...defaultProps} onSuccess={onSuccess} />);
-    fireEvent.change(screen.getByRole("textbox"), { target: { value: "Valid Name" } });
+    const nameInput = screen.getAllByRole("textbox")[0];
+    fireEvent.change(nameInput, { target: { value: "Valid Name" } });
     fireEvent.click(screen.getByLabelText(/Cash/i));
-    
+
     fireEvent.click(screen.getByRole("button", { name: /Book Now/i }));
-    
+
     // In Policy Screen
     expect(screen.getByText(/Cancellation Policy/i)).toBeInTheDocument();
-    
+
     fireEvent.click(screen.getByRole("button", { name: /Confirm & Pay/i }));
-    
+
     const { waitFor } = require("@testing-library/react");
     await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(expect.stringContaining("Booking confirmed")));
   });

@@ -109,15 +109,7 @@ export default function Login() {
         </div>
 
         <div className="form-group">
-          <label className="form-label" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>Password</span>
-            <Link 
-              to="/forgot-password"
-              style={{ color: 'var(--accent)', cursor: 'pointer', textTransform: 'none', textDecoration: 'none' }}
-            >
-              Forgot Password?
-            </Link>
-          </label>
+          <label className="form-label">Password</label>
           <input
             className="form-input"
             type="password"
@@ -127,6 +119,14 @@ export default function Login() {
             onKeyDown={handleKey}
             autoComplete="current-password"
           />
+          <div style={{ textAlign: 'right', marginTop: '6px' }}>
+            <Link 
+              to="/forgot-password"
+              style={{ color: 'var(--accent)', fontSize: '0.85rem', cursor: 'pointer', textDecoration: 'none' }}
+            >
+              Forgot Password?
+            </Link>
+          </div>
         </div>
 
         <button
